@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Time Right</title>
+<meta name="description" content="A personalized circadian plan to optimize your sleep — light, caffeine, movement and wind-down timed to your real day.">
+<meta id="themeColor" name="theme-color" content="#FAF6EF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Time Right">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='40%25' r='62%25'%3E%3Cstop offset='0' stop-color='%23FFD37A'/%3E%3Cstop offset='.55' stop-color='%23F4982F'/%3E%3Cstop offset='1' stop-color='%23DA6E22'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='%2317130D'/%3E%3Cg stroke='%23F6A23A' stroke-width='2.4' stroke-linecap='round'%3E%3Cline x1='16' y1='4' x2='16' y2='7.4'/%3E%3Cline x1='16' y1='24.6' x2='16' y2='28'/%3E%3Cline x1='4' y1='16' x2='7.4' y2='16'/%3E%3Cline x1='24.6' y1='16' x2='28' y2='16'/%3E%3Cline x1='7.4' y1='7.4' x2='9.8' y2='9.8'/%3E%3Cline x1='24.6' y1='7.4' x2='22.2' y2='9.8'/%3E%3Cline x1='7.4' y1='24.6' x2='9.8' y2='22.2'/%3E%3Cline x1='24.6' y1='24.6' x2='22.2' y2='22.2'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='6' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='40%25' r='62%25'%3E%3Cstop offset='0' stop-color='%23FFD37A'/%3E%3Cstop offset='.55' stop-color='%23F4982F'/%3E%3Cstop offset='1' stop-color='%23DA6E22'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='0' fill='%2317130D'/%3E%3Cg stroke='%23F6A23A' stroke-width='2.4' stroke-linecap='round'%3E%3Cline x1='16' y1='4' x2='16' y2='7.4'/%3E%3Cline x1='16' y1='24.6' x2='16' y2='28'/%3E%3Cline x1='4' y1='16' x2='7.4' y2='16'/%3E%3Cline x1='24.6' y1='16' x2='28' y2='16'/%3E%3Cline x1='7.4' y1='7.4' x2='9.8' y2='9.8'/%3E%3Cline x1='24.6' y1='7.4' x2='22.2' y2='9.8'/%3E%3Cline x1='7.4' y1='24.6' x2='9.8' y2='22.2'/%3E%3Cline x1='24.6' y1='24.6' x2='22.2' y2='22.2'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='6' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF6EF; --paper-2:#F3ECE0; --paper-3:#ECE2D2;
+  --ink:#17130D; --ink-2:#4B4339; --ink-3:#8A7E6E;
+  --line:rgba(23,19,13,.10); --line-2:rgba(23,19,13,.06);
+  --sun:#E0772A; --sun-deep:#C5641E; --sun-soft:#F6A23A;
+  --night:#0C1030; --night-2:#141A47; --night-ink:#EAE6F4; --night-ink-2:#A7A6CE; --night-line:rgba(255,255,255,.10);
+  --p-dawn:#FF8E54; --p-morning:#FFC24B; --p-midday:#39B6DE; --p-afternoon:#6AA9CF; --p-evening:#A964C9; --p-night:#5560C4;
+  --src-huberman:#D9772B; --src-bakri:#2E9E86; --src-foundation:#8A7E6E;
+  --r-lg:24px; --r-md:18px; --r-sm:12px;
+  --ease:cubic-bezier(.22,.61,.36,1); --ease-out:cubic-bezier(.16,1,.3,1);
+  --font-display:"Newsreader",Georgia,serif;
+  --font-body:"Hanken Grotesk",-apple-system,system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+  /* type scale — one ladder for the whole app */
+  --fs-label:.72rem;   /* uppercase tracked labels & tags (sans 600; mono only when numeric) */
+  --fs-xs:.8rem;       /* fine print, captions, citations */
+  --fs-sm:.9rem;       /* descriptions, secondary text, list items */
+  --fs-base:1rem;      /* body, options, buttons */
+  --fs-md:1.125rem;    /* lead paragraph, sub-question, FAQ question */
+  --fs-h3:1.2rem;      /* card titles */
+  --fs-stat:1.375rem;  /* big numeric / time values */
+  --fs-h2:1.5rem;      /* section & timeline titles, step title, lever name */
+  --fs-h1:clamp(2rem,4.4vw,2.7rem);
+  --fs-hero:clamp(2.3rem,6vw,3.1rem);
+  --w-reg:400; --w-med:500; --w-semi:600; --track:.14em;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;min-height:100vh;transition:background .5s var(--ease);padding-top:env(safe-area-inset-top)}
+body.dark{background:var(--night)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:var(--w-reg);line-height:1.1;letter-spacing:-.015em}
+.grain{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.03;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ===== app bar ===== */
+.appbar{position:sticky;top:0;z-index:1000;background:color-mix(in srgb,var(--paper) 84%,transparent);backdrop-filter:saturate(1.3) blur(14px);-webkit-backdrop-filter:saturate(1.3) blur(14px);border-bottom:1px solid var(--line);transition:background .5s,border-color .5s}
+body.dark .appbar{background:color-mix(in srgb,var(--night) 82%,transparent);border-bottom-color:var(--night-line)}
+.appbar-inner{max-width:980px;margin:0 auto;height:58px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 clamp(14px,4vw,26px)}
+.brand{display:flex;align-items:center;gap:.5em;color:var(--ink);font-size:1.08rem;text-decoration:none;flex:0 0 auto}
+.brand .mark{width:25px;height:25px}
+.brand b{font-family:var(--font-display);font-weight:500}.brand span{font-weight:600}
+body.dark .brand{color:var(--night-ink)}
+body.dark .brand .mark g{stroke:var(--sun-soft)}
+.vtoggle{display:inline-flex;background:var(--paper-2);border:1px solid var(--line);border-radius:100px;padding:3px}
+body.dark .vtoggle{background:rgba(255,255,255,.06);border-color:var(--night-line)}
+.vtoggle button{font-family:var(--font-body);font-size:.84rem;font-weight:600;color:var(--ink-2);background:transparent;border:none;border-radius:100px;padding:.4em .85em;cursor:pointer;transition:.25s;white-space:nowrap}
+.vtoggle button.on{background:#fff;color:var(--ink);box-shadow:0 2px 8px -4px rgba(23,19,13,.4)}
+body.dark .vtoggle button{color:var(--night-ink-2)}
+body.dark .vtoggle button.on{background:var(--night-2);color:#fff;box-shadow:none}
+.recal{font-family:var(--font-body);font-size:var(--fs-xs);font-weight:var(--w-med);letter-spacing:.01em;color:var(--ink-3);background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.4em;flex:0 0 auto}
+.recal:hover{color:var(--sun-deep)}
+body.dark .recal{color:var(--night-ink-2)}
+@media(max-width:560px){.recal span{display:none}}
+
+.view{display:none}
+.view.active{display:block;animation:viewin .45s var(--ease-out)}
+@keyframes viewin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.wrap{max-width:980px;margin:0 auto;padding:clamp(16px,4vw,28px) clamp(14px,4vw,26px) 72px}
+.btn-primary{font-family:var(--font-body);font-weight:600;font-size:1rem;display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:.85em 1.5em;border-radius:100px;border:none;background:var(--sun);color:#fff;cursor:pointer;transition:transform .25s var(--ease),background .25s,box-shadow .3s;box-shadow:0 10px 26px -12px rgba(224,119,42,.8)}
+.btn-primary:hover{background:var(--sun-deep);transform:translateY(-2px)}
+.btn-primary:disabled{background:var(--paper-3);color:var(--ink-3);box-shadow:none;cursor:not-allowed;transform:none}
+
+/* ============================================================
+   CONSULT
+   ============================================================ */
+#consult.active{display:grid}
+#consult{grid-template-columns:300px 1fr;min-height:calc(100vh - 58px);max-width:980px;margin:0 auto}
+@media(max-width:820px){#consult{grid-template-columns:1fr}}
+.cs-side{border-right:1px solid var(--line);padding:clamp(20px,3vw,34px) clamp(18px,2.4vw,30px);display:flex;flex-direction:column;gap:1.1rem;position:sticky;top:58px;align-self:start;height:calc(100vh - 58px);overflow:auto}
+@media(max-width:820px){.cs-side{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line);flex-direction:row;flex-wrap:wrap;align-items:center;gap:.6rem 1.2rem;padding:14px clamp(14px,4vw,22px)}}
+.cs-num{font-family:var(--font-mono);font-size:var(--fs-label);letter-spacing:.14em;color:var(--ink-3)}
+.cs-side h2{font-size:var(--fs-h2);font-weight:var(--w-reg);letter-spacing:-.02em}
+@media(max-width:820px){.cs-side h2{font-size:1.15rem}.cs-num{order:-1}}
+.cs-viz{margin-top:.2rem}
+.cs-viz svg{width:100%;max-width:230px;height:auto;display:block}
+.cs-viz .cap{font-size:var(--fs-xs);color:var(--ink-3);margin-top:.5rem;max-width:30ch}
+@media(max-width:820px){.cs-viz{display:none}}
+.cs-plan{margin-top:auto;border-top:1px solid var(--line);padding-top:1rem}
+@media(max-width:820px){.cs-plan{margin:0 0 0 auto;border:none;padding:0;text-align:right}}
+.cs-plan .lbl{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3);margin-bottom:.6rem;display:block}
+.cs-plan ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+@media(max-width:820px){.cs-plan ul{display:none}}
+.cs-plan li{font-size:var(--fs-sm);color:var(--ink-2);display:flex;gap:.5em;align-items:baseline;animation:cueIn .45s var(--ease-out)}
+.cs-plan li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sun);flex:0 0 auto;transform:translateY(-1px)}
+.cs-plan .empty{font-size:var(--fs-xs);color:var(--ink-3);font-style:italic}
+.cs-plan .count{font-family:var(--font-mono);font-size:var(--fs-label);color:var(--sun-deep)}
+@keyframes cueIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
+.cs-progress{height:3px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:.4rem}
+@media(max-width:820px){.cs-progress{flex-basis:100%;order:5}}
+.cs-progress i{display:block;height:100%;background:var(--sun);border-radius:3px;transition:width .5s var(--ease)}
+
+.cs-main{padding:clamp(22px,4vw,44px) clamp(16px,4vw,40px);max-width:780px}
+.cs-back{font-family:var(--font-body);font-size:.9rem;color:var(--ink-3);background:none;border:none;cursor:pointer;display:flex;width:fit-content;align-items:center;gap:.4em;margin-bottom:1.2rem;padding:0}
+.cs-back:hover{color:var(--ink)}
+.cs-eyebrow{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep)}
+.cs-main h1{font-size:var(--fs-h1);font-weight:var(--w-reg);letter-spacing:-.02em;margin:.5rem 0 .6rem}
+.cs-main h1 em{font-style:normal;color:var(--sun)}
+.cs-sub{color:var(--ink-2);font-size:var(--fs-md);max-width:54ch}
+.cs-fine{font-size:var(--fs-xs);color:var(--ink-3);margin-top:.7rem;max-width:52ch}
+.cs-q{margin-top:clamp(20px,3vw,30px)}
+.cs-q-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:.3rem}
+.cs-q-head h3{font-size:var(--fs-md);font-weight:var(--w-semi);font-family:var(--font-body)}
+.cs-q-head .meta{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3)}
+.opt{width:100%;text-align:left;background:none;border:none;border-bottom:1px solid var(--line-2);padding:1rem .2rem 1rem 0;cursor:pointer;display:flex;align-items:flex-start;gap:1rem;transition:padding-left .2s,background .2s;position:relative}
+.opt:hover{padding-left:.5rem}
+.opt .label{font-size:var(--fs-base);color:var(--ink);transition:color .2s}
+.opt .desc{font-size:var(--fs-sm);color:var(--ink-3);margin-top:.15rem}
+.opt .rec{margin-left:auto;font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep);flex:0 0 auto;padding-top:.2rem}
+.opt.sel{border-left:2px solid var(--sun);padding-left:.85rem;background:linear-gradient(90deg,rgba(246,162,58,.08),transparent 70%)}
+.opt.sel .label{font-weight:600}
+.opt .check{margin-left:auto;width:18px;height:18px;flex:0 0 auto;color:var(--sun);opacity:0;transition:opacity .2s}
+.opt.sel .check{opacity:1}
+.opt.sel .rec + .check{margin-left:.6rem}
+.opt.sep{border-top:1px solid var(--line);margin-top:.5rem}
+.pillrow{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.5rem}
+.pill{font-family:var(--font-body);font-size:var(--fs-base);background:none;border:1px solid var(--line);border-radius:100px;padding:.55em 1.1em;cursor:pointer;transition:.2s;color:var(--ink-2)}
+.pill:hover{border-color:var(--ink-3)}
+.pill.sel{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.cs-week1{margin-top:1.2rem;font-size:var(--fs-sm);color:var(--ink-2);border-left:2px solid var(--sun);padding:.2rem 0 .2rem .9rem}
+.cs-week1 b{font-family:var(--font-body);font-size:var(--fs-label);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep);display:block;margin-bottom:.2rem;font-weight:var(--w-semi)}
+.cs-foot{display:flex;justify-content:flex-end;margin-top:clamp(20px,3vw,32px)}
+
+/* sliders (step 2) */
+.rhythm-card{border:1px solid var(--line);border-radius:var(--r-md);padding:clamp(16px,2.5vw,22px);margin-top:.6rem;background:var(--paper)}
+.rhythm-card .rc-lbl{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3);margin-bottom:1rem}
+.slider-row{margin-bottom:1.1rem}
+.slider-row:last-child{margin-bottom:0}
+.slider-row .top{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-mono)}
+.slider-row .top .name{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);color:var(--ink-2);letter-spacing:var(--track);text-transform:uppercase}
+.slider-row .top .val{font-size:var(--fs-base);color:var(--ink);font-weight:var(--w-med)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--line);border-radius:3px;margin:.7rem 0 .2rem;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--ink);cursor:pointer;border:3px solid var(--paper);box-shadow:0 2px 6px -2px rgba(0,0,0,.4)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--ink);cursor:pointer;border:3px solid var(--paper)}
+.slider-row .ends{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:var(--fs-label);color:var(--ink-3)}
+.rc-note{font-size:var(--fs-sm);color:var(--ink-2);margin-top:.8rem}
+
+/* cascade (step 9) */
+.casc{margin-top:1.4rem}
+.casc-head{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3);margin-bottom:.4rem}
+.crow{display:flex;align-items:flex-start;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--line-2);cursor:pointer;transition:.2s;position:relative;border-left:2px solid transparent;padding-left:.2rem}
+.crow .rk{font-family:var(--font-mono);font-size:var(--fs-sm);color:var(--ink-3);width:22px;flex:0 0 auto;padding-top:.15rem}
+.crow .body .tier{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3)}
+.crow .body .nm{font-size:var(--fs-md);font-weight:var(--w-semi);margin-top:.05rem}
+.crow .body .ds{font-size:var(--fs-sm);color:var(--ink-3);margin-top:.1rem}
+.crow.in{border-left-color:var(--sun);padding-left:.85rem;background:linear-gradient(90deg,rgba(246,162,58,.08),transparent 70%)}
+.crow.in .tier{color:var(--sun-deep)}
+.crow.key .nm::after{content:" · keystone";font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep)}
+.crow .pick{margin-left:auto;font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3);flex:0 0 auto;padding-top:.2rem}
+.crow.in .pick{color:var(--sun-deep)}
+
+/* final step */
+.cs-final{max-width:560px;margin:0 auto;text-align:center;padding-top:clamp(20px,6vh,60px)}
+.cs-final .eyebrow{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3)}
+.cs-final h1{font-size:var(--fs-hero);font-weight:var(--w-reg);margin:.6rem 0;letter-spacing:-.02em}
+.cs-final h1 em{font-style:normal;color:var(--sun)}
+.cs-final p{color:var(--ink-2);max-width:42ch;margin:0 auto 1.6rem}
+.plan-card{border:1px solid var(--line);border-radius:var(--r-md);text-align:left;background:linear-gradient(180deg,#fff,var(--paper));margin-bottom:1.6rem;overflow:hidden}
+.plan-card .pc-top{display:flex;justify-content:space-between;align-items:center;padding:.9rem 1.2rem;border-bottom:1px solid var(--line);font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3)}
+.plan-card ul{list-style:none;padding:.5rem 1.2rem 1rem}
+.plan-card li{display:flex;gap:.6em;align-items:baseline;padding:.45rem 0;font-size:var(--fs-base);color:var(--ink)}
+.plan-card li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sun);flex:0 0 auto;transform:translateY(-1px)}
+.cs-final .fine{font-size:var(--fs-xs);color:var(--ink-3);margin-top:1.2rem}
+
+/* ============================================================
+   TODAY
+   ============================================================ */
+.glance{position:relative;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(180deg,#fff,var(--paper));box-shadow:0 1px 0 #fff inset,0 24px 50px -38px rgba(23,19,13,.45)}
+.glance::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(110% 80% at 50% -10%,rgba(246,162,58,.16),transparent 60%)}
+.glance-top{position:relative;display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap;padding:1rem clamp(16px,4vw,26px) 0}
+.date{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3)}
+.sleepbadge{font-family:var(--font-mono);font-size:var(--fs-label);color:var(--sun-deep);font-weight:var(--w-med)}
+.arc-live{position:relative;padding:.4rem clamp(10px,3vw,20px) 0}
+.arc-live svg{width:100%;max-width:520px;margin:0 auto;height:auto;display:block;overflow:visible}
+.la-sun{filter:drop-shadow(0 0 10px rgba(240,162,58,.85));transition:opacity .4s}
+.la-sun.down{opacity:.28;filter:grayscale(.4)}
+.la-label{font-family:var(--font-body);font-size:9px;font-weight:600;fill:var(--ink-3);letter-spacing:.1em;text-transform:uppercase}
+.la-now{stroke:var(--ink);stroke-width:1;stroke-dasharray:2 3;opacity:.3}
+.now-status{position:relative;padding:.2rem clamp(16px,4vw,26px) 1.3rem;text-align:center}
+.now-status .greet{font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2rem);font-weight:var(--w-reg);letter-spacing:-.02em}
+.now-status .up{margin-top:.5rem;font-size:var(--fs-base);color:var(--ink-2);display:flex;flex-wrap:wrap;gap:.35em .6em;align-items:baseline;justify-content:center}
+.now-status .up .lbl{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep);background:rgba(224,119,42,.1);padding:.3em .6em;border-radius:100px}
+.now-status .up b{color:var(--ink);font-weight:var(--w-semi)}
+.now-status .up .cd{font-family:var(--font-mono);color:var(--ink-3);font-size:var(--fs-sm)}
+.focusbar{margin-top:16px;border:1px solid var(--line);border-radius:var(--r-md);padding:clamp(14px,2.5vw,18px);background:var(--paper)}
+.focusbar .fb-lbl{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3);margin-bottom:.7rem;display:flex;justify-content:space-between}
+.focusbar .fb-lbl a{color:var(--sun-deep);text-decoration:none;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{font-size:var(--fs-sm);color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:100px;padding:.4em .85em;display:inline-flex;align-items:center;gap:.45em}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sun)}
+.anchors{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;margin-top:16px}
+@media(max-width:520px){.anchors{grid-template-columns:1fr}}
+.anchor{background:var(--paper);padding:.85rem 1rem}
+.anchor .k{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3)}
+.anchor .v{font-family:var(--font-display);font-size:var(--fs-stat);margin-top:.2rem}
+.anchor .v small{font-family:var(--font-mono);font-size:var(--fs-label);color:var(--ink-2)}
+.tl-title{display:flex;align-items:baseline;justify-content:space-between;margin:30px 4px 6px}
+.tl-title h2{font-size:var(--fs-h2);font-weight:var(--w-reg)}
+.tl-title .leg{font-family:var(--font-body);font-size:var(--fs-xs);color:var(--ink-3)}
+@media(max-width:560px){.tl-title{flex-wrap:wrap;gap:2px 1rem}.tl-title .leg{flex-basis:100%}}
+.phase-label{display:flex;align-items:center;gap:.6em;margin:1.4rem 0 .3rem;padding-left:46px}
+.phase-label:first-child{margin-top:.4rem}
+.phase-label .dot{width:9px;height:9px;border-radius:50%}
+.phase-label h4{font-size:var(--fs-label);font-family:var(--font-body);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-2)}
+.phase-label .rng{font-family:var(--font-mono);font-size:var(--fs-label);color:var(--ink-3);margin-left:auto}
+.tl-item{position:relative;padding-left:46px}
+.tl-item::before{content:"";position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--p-dawn),var(--p-morning) 22%,var(--p-midday) 45%,var(--p-afternoon) 60%,var(--p-evening) 80%,var(--p-night));opacity:.3}
+.tl-item:first-of-type::before{top:14px}.tl-item:last-of-type::before{bottom:auto;height:18px}
+.tl-node{position:absolute;left:8px;top:15px;width:16px;height:16px;border-radius:50%;background:var(--paper);border:3px solid var(--node,var(--sun));z-index:2;transition:transform .3s,box-shadow .3s}
+details[open] .tl-node{transform:scale(1.15);box-shadow:0 0 0 5px color-mix(in srgb,var(--node) 20%,transparent)}
+details.card{border-bottom:1px solid var(--line-2);scroll-margin-top:80px}
+details.card[open]{border-bottom-color:transparent}
+.card summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:1rem;padding:.95rem 0}
+.card summary::-webkit-details-marker{display:none}
+.card summary:hover .c-title{color:var(--sun-deep)}
+.c-time{font-family:var(--font-mono);font-size:var(--fs-sm);font-weight:var(--w-med);color:var(--ink);flex:0 0 auto;width:84px;line-height:1.35}
+.c-time small{display:block;font-size:var(--fs-label);color:var(--ink-3);font-weight:var(--w-reg)}
+.c-main{flex:1;min-width:0;display:block}
+.c-title{display:block;font-family:var(--font-display);font-size:var(--fs-h3);font-weight:var(--w-reg);letter-spacing:-.01em;line-height:1.2;transition:color .2s}
+.c-line{display:block;color:var(--ink-2);font-size:var(--fs-sm);margin-top:.22rem}
+.c-chev{flex:0 0 auto;color:var(--ink-3);transition:transform .3s var(--ease);margin-top:.25rem}
+details[open] .c-chev{transform:rotate(90deg)}
+.badge{display:inline-block;font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;padding:.25em .6em;border-radius:100px;vertical-align:middle;margin-left:.5em}
+.badge.next{background:var(--sun);color:#fff}.badge.now{background:var(--ink);color:var(--paper)}.badge.focus{background:rgba(224,119,42,.14);color:var(--sun-deep)}
+.tl-item.is-next details.card,.tl-item.is-now details.card{background:linear-gradient(90deg,rgba(246,162,58,.10),transparent 70%);border-radius:14px}
+.tl-item.is-next .tl-node{box-shadow:0 0 0 5px rgba(224,119,42,.18)}
+.c-why{padding:0 0 1.2rem 0;margin-left:calc(84px + 1rem);color:var(--ink-2);font-size:var(--fs-sm);max-width:60ch;animation:reveal .35s var(--ease-out)}
+@media(max-width:560px){.card summary{flex-wrap:wrap;gap:.25rem .8rem}.c-time{width:100%;display:flex;align-items:baseline;gap:.55em}.c-time small{display:inline}.c-why{margin-left:0}}
+@keyframes reveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.src{display:inline-flex;align-items:center;gap:.4em;font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;padding:.3em .65em;border-radius:100px;border:1px solid currentColor;margin-top:.8rem}
+.src.huberman{color:var(--src-huberman)}.src.bakri{color:var(--src-bakri)}.src.foundation{color:var(--src-foundation)}.src.both{color:var(--sun-deep)}
+.disclaimer-mini{margin-top:30px;text-align:center;font-size:var(--fs-xs);color:var(--ink-3);font-family:var(--font-body)}
+.disclaimer-mini a{color:var(--sun-deep);cursor:pointer}
+
+/* ============================================================
+   PLAN
+   ============================================================ */
+.sec-h{margin:clamp(8px,2vw,16px) 0 1rem}
+.sec-h .eyebrow{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep)}
+.sec-h h2{font-size:var(--fs-h1);font-weight:var(--w-reg);letter-spacing:-.02em;margin:.4rem 0 .3rem}
+.sec-h h2 em{font-style:normal;color:var(--sun)}
+.sec-h p{color:var(--ink-2);max-width:54ch}
+.lever-card{border:1px solid color-mix(in srgb,var(--sun) 40%,var(--line));border-radius:var(--r-md);padding:clamp(18px,3vw,26px);background:linear-gradient(180deg,#fff,var(--paper));margin-bottom:18px;position:relative;overflow:hidden}
+.lever-card .tag{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep)}
+.lever-card h3{font-size:var(--fs-h2);font-weight:var(--w-reg);margin:.4rem 0 .3rem}
+.lever-card p{color:var(--ink-2);font-size:var(--fs-base);max-width:52ch}
+.weekgrid{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:18px}
+.w1cue{display:flex;align-items:flex-start;gap:.8rem;border:1px solid var(--line);border-radius:var(--r-sm);padding:.85rem 1rem;background:var(--paper)}
+.w1cue .ix{width:22px;height:22px;border-radius:50%;background:rgba(224,119,42,.12);color:var(--sun-deep);font-family:var(--font-mono);font-size:var(--fs-label);display:grid;place-items:center;flex:0 0 auto;margin-top:.05rem}
+.w1cue .t{font-size:var(--fs-base);color:var(--ink)}
+.ramp{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:6px}
+@media(max-width:680px){.ramp{grid-template-columns:repeat(2,1fr)}}
+.rweek{border:1px solid var(--line);border-radius:var(--r-sm);padding:1rem;background:var(--paper)}
+.rweek .wk{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep)}
+.rweek h4{font-size:var(--fs-h3);font-weight:var(--w-reg);margin:.3rem 0 .35rem}
+.rweek p{font-size:var(--fs-sm);color:var(--ink-2)}
+.badday{margin-top:14px;font-size:var(--fs-sm);color:var(--ink-2);border-left:2px solid var(--sun);padding-left:.9rem}
+.badday b{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep);display:block;margin-bottom:.15rem}
+.cascade-mini .crow{cursor:default}
+
+/* ============================================================
+   SCIENCE (dark)
+   ============================================================ */
+#science{background:var(--night);color:var(--night-ink);min-height:calc(100vh - 58px)}
+#science .wrap{position:relative;z-index:1}
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0;transition:opacity .6s}
+body.dark .stars{opacity:.85}
+.star{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;animation:twinkle 4s infinite ease-in-out}
+@keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.8}}
+.sci-head{margin-bottom:clamp(22px,4vw,34px)}
+.sci-eyebrow{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-soft);display:inline-flex;align-items:center;gap:.6em}
+.sci-eyebrow::before{content:"";width:24px;height:1px;background:var(--sun-soft);opacity:.7}
+.sci-head h2{color:var(--night-ink);font-size:var(--fs-h1);font-weight:var(--w-reg);letter-spacing:-.02em;margin:.7rem 0 .5rem}
+.sci-head h2 em{font-style:normal;color:var(--sun-soft)}
+.sci-head p{color:var(--night-ink-2);max-width:58ch;font-size:var(--fs-md)}
+.scards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,18px);margin-bottom:clamp(26px,4vw,40px)}
+@media(max-width:760px){.scards{grid-template-columns:1fr}}
+.scard{border:1px solid var(--night-line);border-radius:var(--r-md);padding:clamp(18px,2.5vw,24px);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.01))}
+.scard .n{font-family:var(--font-mono);font-size:var(--fs-label);color:var(--sun-soft)}
+.scard h3{font-size:var(--fs-h3);font-weight:var(--w-reg);color:var(--night-ink);margin:.5rem 0 .35rem}
+.scard p{font-size:var(--fs-sm);color:var(--night-ink-2)}
+.research{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.5vw,20px);margin-bottom:clamp(26px,4vw,40px)}
+@media(max-width:680px){.research{grid-template-columns:1fr}}
+.r-card{border:1px solid var(--night-line);border-radius:var(--r-md);padding:clamp(18px,2.5vw,26px);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.01));position:relative;overflow:hidden}
+.r-card::before{content:"";position:absolute;top:-40%;right:-20%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 70%);opacity:.5;pointer-events:none}
+.r-card .who{display:flex;align-items:center;gap:.7em;margin-bottom:.9rem}
+.r-card .av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-display);font-size:var(--fs-md);color:#fff;flex:0 0 auto}
+.r-card h3{font-size:var(--fs-h3);font-weight:var(--w-reg);color:var(--night-ink)}
+.r-card .role{font-family:var(--font-body);font-size:var(--fs-xs);color:var(--night-ink-2)}
+.r-card ul{list-style:none}
+.r-card li{position:relative;padding:.5rem 0 .5rem 1.5em;color:var(--night-ink-2);font-size:var(--fs-sm);border-top:1px solid var(--night-line)}
+.r-card li:first-child{border-top:none}
+.r-card li::before{content:"";position:absolute;left:0;top:1.05em;width:7px;height:7px;border-radius:50%;background:var(--glow)}
+.r-card li b{color:var(--night-ink);font-weight:600}
+.cites{border:1px solid var(--night-line);border-radius:var(--r-md);overflow:hidden;margin-bottom:clamp(26px,4vw,40px)}
+.cites .ch{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--night-ink-2);padding:.9rem 1.1rem;border-bottom:1px solid var(--night-line)}
+.cite{display:flex;justify-content:space-between;gap:1rem;padding:.85rem 1.1rem;border-bottom:1px solid var(--night-line);font-size:var(--fs-sm)}
+.cite:last-child{border-bottom:none}
+.cite .c-claim{color:var(--night-ink)}
+.cite .c-src{font-family:var(--font-body);font-size:var(--fs-xs);color:var(--night-ink-2);text-align:right;flex:0 0 auto}
+.constraints{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,16px);margin-bottom:clamp(26px,4vw,40px)}
+@media(max-width:680px){.constraints{grid-template-columns:1fr}}
+.cons{border:1px solid var(--night-line);border-radius:var(--r-sm);padding:1.1rem;background:rgba(255,255,255,.02)}
+.cons .n{font-family:var(--font-mono);font-size:var(--fs-label);color:var(--sun-soft)}
+.cons h4{font-size:var(--fs-h3);font-weight:var(--w-reg);color:var(--night-ink);margin:.3rem 0 .3rem}
+.cons p{font-size:var(--fs-sm);color:var(--night-ink-2)}
+.faq-list h3.sub{color:var(--night-ink);font-size:var(--fs-h3);font-weight:var(--w-reg);margin-bottom:.3rem}
+.faq-list details{border-top:1px solid var(--night-line)}
+.faq-list details:last-child{border-bottom:1px solid var(--night-line)}
+.faq-list summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.15rem 0;font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--w-reg);color:var(--night-ink)}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary:hover{color:#fff}
+.faq-list .pm{flex:0 0 auto;width:20px;height:20px;position:relative}
+.faq-list .pm::before,.faq-list .pm::after{content:"";position:absolute;background:var(--sun-soft);border-radius:2px}
+.faq-list .pm::before{left:0;right:0;top:9px;height:2px}
+.faq-list .pm::after{top:0;bottom:0;left:9px;width:2px;transition:transform .3s var(--ease)}
+.faq-list details[open] .pm::after{transform:scaleY(0)}
+.faq-list .ans{padding:0 0 1.3rem;color:var(--night-ink-2);max-width:64ch;font-size:var(--fs-sm);animation:reveal .35s var(--ease-out)}
+.sci-disclaimer{margin-top:30px;padding-top:18px;border-top:1px solid var(--night-line);font-size:var(--fs-xs);color:var(--night-ink-2);max-width:66ch}
+.sci-disclaimer a{color:var(--sun-soft)}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="stars" id="stars" aria-hidden="true"></div>
+
+<header class="appbar">
+  <div class="appbar-inner">
+    <a href="#" class="brand" id="brandHome"><svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><defs><radialGradient id="sunmark" cx="50%" cy="42%" r="62%"><stop offset="0" stop-color="#FFD37A"/><stop offset=".55" stop-color="#F4982F"/><stop offset="1" stop-color="#DA6E22"/></radialGradient></defs><g stroke="var(--sun)" stroke-width="2.2" stroke-linecap="round"><line x1="16" y1="4.5" x2="16" y2="7.5"/><line x1="16" y1="24.5" x2="16" y2="27.5"/><line x1="4.5" y1="16" x2="7.5" y2="16"/><line x1="24.5" y1="16" x2="27.5" y2="16"/><line x1="7.87" y1="7.87" x2="9.99" y2="9.99"/><line x1="24.13" y1="7.87" x2="22.01" y2="9.99"/><line x1="7.87" y1="24.13" x2="9.99" y2="22.01"/><line x1="24.13" y1="24.13" x2="22.01" y2="22.01"/></g><circle cx="16" cy="16" r="6.2" fill="url(#sunmark)"/></svg><span>Time <b>Right</b></span></a>
+    <div class="vtoggle" id="vtoggle" role="tablist" style="display:none">
+      <button data-view="today" class="on">Today</button>
+      <button data-view="plan">Plan</button>
+      <button data-view="science">Science</button>
+    </div>
+    <button class="recal" id="recalBtn" style="display:none" title="Retake the consultation">↻ <span>Retune</span></button>
+  </div>
+</header>
+
+<!-- ===== CONSULT ===== -->
+<main id="consult" class="view" role="tabpanel">
+  <aside class="cs-side">
+    <div><span class="cs-num" id="csNum">01 / 10</span><h2 id="csLabel">Your goals</h2></div>
+    <div class="cs-viz" id="csViz"></div>
+    <div class="cs-plan">
+      <span class="lbl">Your Week 1 plan · <span class="count" id="csCount">0 cues</span></span>
+      <ul id="csPlanList"></ul>
+      <div class="empty" id="csPlanEmpty">Each answer adds one keepable cue here.</div>
+    </div>
+    <div class="cs-progress"><i id="csBar" style="width:10%"></i></div>
+  </aside>
+  <section class="cs-main" id="csMain"></section>
+</main>
+
+<!-- ===== TODAY ===== -->
+<main id="today" class="view" role="tabpanel">
+  <div class="wrap">
+    <div class="glance">
+      <div class="glance-top"><span class="date" id="date">—</span><span class="sleepbadge" id="sleepBadge"></span></div>
+      <div class="arc-live" aria-hidden="true">
+        <svg viewBox="0 0 400 140" id="arcSvg">
+          <defs>
+            <linearGradient id="laGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF8E54"/><stop offset=".28" stop-color="#FFC24B"/><stop offset=".5" stop-color="#39B6DE"/><stop offset=".74" stop-color="#A964C9"/><stop offset="1" stop-color="#5560C4"/></linearGradient>
+            <radialGradient id="laSun"><stop offset="0" stop-color="#FFE7B8"/><stop offset=".5" stop-color="#F6A23A"/><stop offset="1" stop-color="#E0772A"/></radialGradient>
+          </defs>
+          <line x1="14" y1="116" x2="386" y2="116" stroke="var(--line)" stroke-width="1.4"/>
+          <path id="liveArcPath" d="M24 116 Q200 12 376 116" fill="none" stroke="url(#laGrad)" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+          <line id="laNow" class="la-now" x1="0" y1="20" x2="0" y2="116" style="display:none"/>
+          <text class="la-label" x="24" y="132" text-anchor="middle">wake</text>
+          <text class="la-label" x="376" y="132" text-anchor="middle">sleep</text>
+          <g class="la-sun" id="laSun" transform="translate(200,64)"><circle r="9" fill="url(#laSun)"/></g>
+        </svg>
+      </div>
+      <div class="now-status"><div class="greet" id="greet">One moment…</div><div class="up" id="up"></div></div>
+    </div>
+    <div class="focusbar" id="focusbar" style="display:none">
+      <div class="fb-lbl"><span>Your Week 1 focus</span><a id="focusToPlan">see plan →</a></div>
+      <div class="chips" id="focusChips"></div>
+    </div>
+    <div class="anchors" id="summary"></div>
+    <div class="tl-title"><h2>Your day, timed right</h2><span class="leg">tap any cue for the why</span></div>
+    <div class="timeline" id="timeline"></div>
+    <p class="disclaimer-mini">Educational tool, not medical advice. · <a id="toSci">the science →</a></p>
+  </div>
+</main>
+
+<!-- ===== PLAN ===== -->
+<main id="plan" class="view" role="tabpanel">
+  <div class="wrap">
+    <div class="sec-h"><span class="eyebrow">Your lever</span><h2 id="planLeverTitle">Start here.</h2><p>Eight timing bottlenecks shape your day. We ranked them from your answers — fix the keystone and the rest ease behind it.</p></div>
+    <div class="lever-card"><span class="tag" id="leverTag">HIGHEST LEVERAGE · START HERE</span><h3 id="leverName">Morning light timing</h3><p id="leverDesc"></p></div>
+    <div class="cascade-mini casc"><div class="casc-head"><span>Your timing patterns</span><span id="cascCount">ranked from your answers</span></div><div id="cascadeList"></div></div>
+
+    <div class="sec-h" style="margin-top:34px"><span class="eyebrow">Your Week 1</span><h2>The cues you’re <em>keeping.</em></h2><p>A small, repeatable set — not an overhaul. Hold these this week.</p></div>
+    <div class="weekgrid" id="weekCues"></div>
+
+    <div class="sec-h" style="margin-top:34px"><span class="eyebrow">The rollout</span><h2>Four weeks, <em>one phase at a time.</em></h2><p>Never an overhaul you white-knuckle. Each week has a bad-day minimum — the version you keep when everything else falls apart.</p></div>
+    <div class="ramp">
+      <div class="rweek"><div class="wk">WK 1</div><h4>Stabilize</h4><p>Fix your wake time. One anchor, every day.</p></div>
+      <div class="rweek"><div class="wk">WK 2</div><h4>Shift</h4><p>Push light earlier. Caffeine follows the light.</p></div>
+      <div class="rweek"><div class="wk">WK 3</div><h4>Strengthen</h4><p>Extend the dim window before bed.</p></div>
+      <div class="rweek"><div class="wk">WK 4</div><h4>Refine</h4><p>Hold the pattern. Add one backup move.</p></div>
+    </div>
+    <div class="badday"><b>Bad-day minimum</b><span id="badday">Morning light + a steady wake time. If you do nothing else, do these two.</span></div>
+  </div>
+</main>
+
+<!-- ===== SCIENCE ===== -->
+<section id="science" class="view" role="tabpanel">
+  <div class="wrap">
+    <div class="sci-head">
+      <span class="sci-eyebrow">The science</span>
+      <h2>Your eyes do more than see. <em>They help your brain keep time.</em></h2>
+      <p>Your daily environment sends light and dark signals. Your eyes pick them up, and your brain uses them to keep your internal timing on track. Time Right turns that biology into a plan.</p>
+    </div>
+    <div class="scards">
+      <div class="scard"><div class="n">01</div><h3>Light is the signal</h3><p>Bright days and dim nights are your body's strongest timing cue — stronger than any alarm. Your eyes read the gap.</p></div>
+      <div class="scard"><div class="n">02</div><h3>Your brain keeps the time</h3><p>Special retinal cells send light and dark signals straight to the brain, which organizes alertness, sleep pressure, and hormone timing.</p></div>
+      <div class="scard"><div class="n">03</div><h3>Time Right maps it to your day</h3><p>We translate the biology into a plan: light, movement, dimming, bedtime — each placed where it does the most.</p></div>
+    </div>
+    <div class="research">
+      <div class="r-card" style="--glow:rgba(217,119,43,.5)">
+        <div class="who"><div class="av" style="background:linear-gradient(135deg,#F6A23A,#D9772B)">AH</div><div><h3>Andrew Huberman, Ph.D.</h3><div class="role">Neuroscientist · Stanford School of Medicine</div></div></div>
+        <ul><li><b>Morning sunlight</b> within 30–60 min of waking — sets the cortisol pulse and the melatonin timer.</li><li><b>Delay caffeine 90–120 min</b> to clear adenosine and avoid the afternoon crash.</li><li><b>Train within ~3 hours of waking</b> while cortisol and body temperature rise.</li><li><b>Dim lights & cool the room</b> at night; protect the last hours before sleep.</li></ul>
+      </div>
+      <div class="r-card" style="--glow:rgba(46,158,134,.5)">
+        <div class="who"><div class="av" style="background:linear-gradient(135deg,#43C9A8,#2E9E86)">AB</div><div><h3>Dr. Abud Bakri, MD</h3><div class="role">Internal Medicine · Health Optimization</div></div></div>
+        <ul><li><b>30–40g of protein early</b> for satiety, stable energy, and muscle.</li><li><b>Heavy resistance training</b> plus <b>8,000–15,000 steps</b> a day as the base.</li><li><b>Nutrient-dense whole foods</b> — meat, fish, eggs, vegetables, healthy fats.</li><li><b>Foundation first:</b> sunlight, sleep, diet, movement before anything fancy.</li></ul>
+      </div>
+    </div>
+    <div class="cites">
+      <div class="ch">Grounded in established research</div>
+      <div class="cite"><span class="c-claim">The human body clock runs with remarkable, near-24-hour precision.</span><span class="c-src">Czeisler et al. · 1999 · Science</span></div>
+      <div class="cite"><span class="c-claim">A distinct retinal cell senses light for timing, not vision.</span><span class="c-src">Berson et al. · 2002 · Science</span></div>
+      <div class="cite"><span class="c-claim">These cells route light signals to the brain's master clock.</span><span class="c-src">Hattar et al. · 2002 · Science</span></div>
+      <div class="cite"><span class="c-claim">Evening screen light can delay melatonin onset.</span><span class="c-src">Chang et al. · 2015 · PNAS</span></div>
+    </div>
+    <div class="sci-head" style="margin-bottom:16px"><span class="sci-eyebrow">Your real life</span><h2 style="font-size:clamp(1.5rem,3.5vw,2rem)">It doesn't have to be perfect to be <em>timed right.</em></h2></div>
+    <div class="constraints">
+      <div class="cons"><div class="n">01</div><h4>Stuck indoors all day</h4><p>Offices sit at 200–500 lux; outdoor daylight runs 10,000–25,000+. Short outdoor breaks are the most repeatable fix; a bright lamp is the backup.</p></div>
+      <div class="cons"><div class="n">02</div><h4>Before-sunrise mornings</h4><p>A bright lamp, stepping out as the sky lightens, or sun on the commute all count. Timing matters more than the source.</p></div>
+      <div class="cons"><div class="n">03</div><h4>Shared home & family schedule</h4><p>We protect what you can own: your morning light window and your evening dim-down. The rest stays flexible.</p></div>
+      <div class="cons"><div class="n">04</div><h4>Inconsistent bedtimes</h4><p>A consistent <b>wake</b> time anchors your rhythm even when bedtime drifts. That single habit does more than any other change.</p></div>
+    </div>
+    <div class="faq-list">
+      <h3 class="sub">Everything you need to know</h3>
+      <details><summary>What does Time Right actually give me?<span class="pm"></span></summary><div class="ans">A personalized 24-hour day plan with specific timed actions: your morning light window, caffeine cut-off (if relevant), evening dim-down, and lights-out target — all built from your real schedule and constraints.</div></details>
+      <details><summary>Do I need to buy anything?<span class="pm"></span></summary><div class="ans">No. Time Right starts with behavior and the tools you already have. It runs in your browser and saves on this device.</div></details>
+      <details><summary>How long does the setup take?<span class="pm"></span></summary><div class="ans">A few minutes. You walk through your actual day — wake time, light, caffeine, screens, constraints — and it builds the plan as you go. It feels like a short conversation, not a form.</div></details>
+      <details><summary>Can I change it later?<span class="pm"></span></summary><div class="ans">Yes — hit <b>Retune</b> any time your schedule, season, or travel changes. Same process, fresh output.</div></details>
+      <details><summary>Do I need a smartwatch or wearable?<span class="pm"></span></summary><div class="ans">No. Time Right is a plan, not a tracker. It works with nothing but your real schedule and never depends on a device reading your body.</div></details>
+    </div>
+    <p class="sci-disclaimer">Time Right provides educational wellness guidance only. It does not diagnose, treat, or replace care from a qualified clinician. Talk to a doctor before changing your routine — especially around cold exposure, fasting, training load, or supplements. Sources: <a href="https://www.hubermanlab.com/" target="_blank" rel="noopener">Huberman Lab</a> · <a href="https://abudbakri.com/" target="_blank" rel="noopener">Dr. Abud Bakri</a>.</p>
+  </div>
+</section>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+function pad(n){return (n<10?"0":"")+n}
+function mod(n){return ((n%1440)+1440)%1440}
+function fmt(m){m=mod(Math.round(m));var h=Math.floor(m/60),mm=m%60,ap=h>=12?"PM":"AM",h12=h%12;if(h12===0)h12=12;return h12+":"+pad(mm)+" "+ap}
+function fmtShort(m){m=mod(Math.round(m));var h=Math.floor(m/60),mm=m%60,ap=h>=12?"p":"a",h12=h%12;if(h12===0)h12=12;return h12+(mm?":"+pad(mm):"")+ap}
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+
+/* ---------- day-timeline protocol model ---------- */
+var PHASES={dawn:{name:"Dawn",color:"var(--p-dawn)"},morning:{name:"Morning",color:"var(--p-morning)"},midday:{name:"Midday",color:"var(--p-midday)"},afternoon:{name:"Afternoon",color:"var(--p-afternoon)"},evening:{name:"Evening",color:"var(--p-evening)"},night:{name:"Night",color:"var(--p-night)"}};
+var PROTOCOLS=[
+ {id:"hydrate",phase:"dawn",win:[0,30],title:"Hydrate before anything",line:"~500 ml water with a pinch of sea salt.",why:"You wake mildly dehydrated. Water with a little salt restores blood volume and sharpens alertness before caffeine.",src:"foundation",srcLabel:"Foundation"},
+ {id:"light",phase:"dawn",win:[0,60],title:"Get sunlight in your eyes",line:"Outside, no sunglasses. Sunny 5–10 min · cloudy 10–20 · overcast 20–30.",why:"Direct morning light is the strongest signal to your master clock — a cortisol pulse now, melatonin ~14–16 h later. Through glass is far weaker.",src:"huberman",srcLabel:"Huberman"},
+ {id:"cold",phase:"morning",at:60,win:[45,75],title:"Deliberate cold exposure",line:"1–3 min cold shower or plunge. Optional, but potent.",why:"A short cold bout drives a long, clean rise in dopamine and norepinephrine — hours of focus without a crash.",src:"huberman",srcLabel:"Huberman"},
+ {id:"caffeine",phase:"morning",win:[90,120],title:"Now you can have caffeine",line:"Your first coffee — 90 to 120 minutes after waking.",why:"Adenosine is still clearing for the first ~90 min. Waiting lets caffeine work with your cortisol peak and protects tonight's sleep.",src:"huberman",srcLabel:"Huberman"},
+ {id:"protein",phase:"morning",win:[90,150],title:"Eat 30–40g of protein",line:"A protein-forward first meal: eggs, meat, fish, dairy.",why:"A high-protein early meal drives satiety, stabilizes blood sugar, and supplies amino acids for muscle.",src:"bakri",srcLabel:"Bakri"},
+ {id:"train",phase:"morning",at:120,win:[0,180],title:"Train within 3 hours of waking",line:"Resistance + zone-2. Heavy compound lifts.",why:"Body temperature and cortisol rise through the morning — the strongest, lowest-injury window for hard training.",src:"both",srcLabel:"Huberman + Bakri"},
+ {id:"focus",phase:"midday",win:[180,360],title:"Protect your peak-focus block",line:"Your hardest cognitive work. Phone away.",why:"Core temperature and cortisol peak in late morning — your sharpest 2–3 hours. Guard it from meetings and your phone.",src:"huberman",srcLabel:"Huberman"},
+ {id:"steps",phase:"midday",at:300,title:"Accumulate 8,000–15,000 steps",line:"Spread movement across the day.",why:"Daily steps do more for insulin sensitivity, mood and recovery than any single workout. A background target, not an event.",src:"bakri",srcLabel:"Bakri"},
+ {id:"afternoon",phase:"afternoon",at:510,title:"Beat the dip with light + a walk",line:"10 minutes outside instead of another coffee.",why:"Ten minutes of outdoor light and movement resets alertness and gives your eyes a second daytime dose — no sleep-wrecking caffeine.",src:"huberman",srcLabel:"Huberman"},
+ {id:"cutoff",phase:"afternoon",at:600,title:"Last call for caffeine",line:"Cut off all caffeine from here on.",why:"Caffeine's half-life is ~5–6 h, so an afternoon cup is still active at bedtime. Stop ~8–10 h before bed.",src:"huberman",srcLabel:"Huberman"},
+ {id:"evening",phase:"evening",at:690,title:"Catch the sunset, dim the lights",line:"View low evening light; switch to warm, low lamps.",why:"Low-angle evening light tells your clock the day is ending and protects melatonin from bright overhead light.",src:"huberman",srcLabel:"Huberman"},
+ {id:"meal",phase:"evening",bedRel:180,title:"Finish your last real meal",line:"Stop eating about 3 hours before bed.",why:"Eating close to bed keeps core temperature and digestion elevated when both should fall. An earlier last meal speeds sleep onset.",src:"foundation",srcLabel:"Foundation"},
+ {id:"winddown",phase:"night",bedRel:60,title:"Wind down — cool, dark, screens off",line:"Room to ~65–68°F. Lights low. Screens down.",why:"Sleep onset needs a 1–3°F drop in core temperature, so a cool, dim room is non-negotiable for melatonin to rise on time.",src:"huberman",srcLabel:"Huberman"},
+ {id:"lightsout",phase:"night",bedRel:0,title:"Lights out",line:"Same time every night — this locks the rhythm.",why:"~14–16 h after morning light, melatonin peaks. A consistent lights-out stabilizes the whole rhythm. Consistency beats duration.",src:"huberman",srcLabel:"Huberman"}
+];
+
+/* ---------- questionnaire model ---------- */
+/* block types: multi, single, pill, sliders, keep(multi/single), cascade */
+var STEPS=[
+ {num:"01",label:"Your goals",eyebrow:"Where we begin",title:"What should feel <em>better?</em>",
+  sub:"Tell me what's off and we'll start there. Most of these come from the same timing, so fixing one often eases the rest.",
+  fine:"Educational wellness only. Not for emergencies, urgent medical needs, diagnosis, or treatment.",
+  blocks:[{type:"multi",key:"goals",prompt:"Pick the ones that sound like you.",opts:[
+   {v:"groggy",l:"Hard to get out of bed"},{v:"fog",l:"Morning brain fog"},{v:"crash",l:"Afternoon crash"},{v:"caf",l:"Running on caffeine"},{v:"wired",l:"Tired but wired at night"},{v:"slip",l:"Bedtime keeps slipping later"},{v:"unref",l:"Wake up unrefreshed"},{v:"work",l:"Not sure yet — just want my day to work",sep:true}]}]},
+
+ {num:"02",label:"Your rhythm",eyebrow:"Your rhythm",title:"What rhythm are we <em>moving toward?</em>",
+  sub:"Your wake time is the anchor your whole day organizes around. Give the real times, not the perfect ones.",
+  blocks:[{type:"sliders"},
+   {type:"single",key:"consistency",prompt:"How consistent is your wake time?",opts:[{v:"30",l:"Within 30 min"},{v:"60",l:"30 to 60 min"},{v:"120",l:"1 to 2 hours"},{v:"none",l:"No pattern yet"}]}],
+  week1:"Move wake 10 minutes earlier every 3 days. About two weeks, and you'll barely feel it.",
+  cta:"Set my rhythm"},
+
+ {num:"03",label:"Morning light",eyebrow:"Morning light",title:"What light hits your <em>eyes first?</em>",
+  sub:"Daylight is far brighter than any indoor light, and that brightness is what starts your body clock for the day.",
+  blocks:[{type:"single",key:"lightFirst",prompt:"",opts:[
+    {v:"outside",l:"Outside first thing",d:"Strongest day-start signal."},{v:"commute",l:"Daylight on my commute or by a window",d:"Works when the light is early and repeatable."},{v:"indoors",l:"Indoors under normal lights",d:"A softer signal; usually needs a backup."},{v:"dark",l:"Dark room, phone first",d:"Common, but it delays the day-start signal."}]},
+   {type:"keep",key:"lightKeep",prompt:"Pick the morning light you can keep:",showIf:function(a){return a.lightFirst},opts:[
+    {v:"5-10",l:"5–10 minutes outside after waking",d:"Enough brightness to tell your clock the day has started.",rec:true,cue:"Morning light: 5–10 min outside"},{v:"commute",l:"Daylight commute or open window",d:"Use the light you already pass through.",cue:"Morning light: daylight commute"},{v:"device",l:"Bright window or a light device",d:"A backup when weather or schedule blocks outdoor light.",cue:"Morning light: bright window / lamp"},{v:"not",l:"Not this week"}]}]},
+
+ {num:"04",label:"Morning cues",eyebrow:"Morning anchor",title:"Which morning habits can you <em>tie to your wake time?</em>",
+  sub:"Light is the anchor. Movement and first food are support signals. A small habit you repeat beats a perfect one you skip.",
+  blocks:[{type:"multi",key:"morningHabits",prompt:"Pick the ones that fit your morning.",opts:[
+    {v:"move",l:"Some movement in the morning",d:"Helps the wake anchor feel physical, not just mental."},{v:"meal",l:"Consistent time for first meal",d:"Food timing is a secondary body-clock cue."},{v:"caf",l:"Caffeine is my first morning cue",d:"Useful energy, but it doesn't replace light or rhythm."},{v:"chaos",l:"Mornings are too chaotic right now",d:"Use this only if no repeatable cue is realistic."}]},
+   {type:"keep",key:"morningKeep",prompt:"Which move goes in your Week 1 plan?",showIf:function(a){return (a.morningHabits||[]).length},opts:[
+    {v:"pushups",l:"2 min push-ups / squats / stairs",d:"A no-gear movement cue that still works indoors.",rec:true,cue:"Morning cue: 2-min movement"},{v:"meal",l:"Consistent first-meal time",d:"Keeps the day-start signal stable when mornings vary.",cue:"Morning cue: steady first meal"},{v:"none",l:"No new morning cue this week"}]}]},
+
+ {num:"05",label:"Energy",eyebrow:"Caffeine's tail",title:"What carries your <em>energy?</em>",
+  sub:"Caffeine earns its place in a lot of good days. The timing of your last cup is what shapes your night.",
+  blocks:[{type:"single",key:"energy",prompt:"How does your energy move through the day?",opts:[
+    {v:"slow",l:"Slow to start, better later"},{v:"crash",l:"Good morning, afternoon crash"},{v:"wired",l:"Wired but tired at night"},{v:"steady",l:"Steady enough"}]},
+   {type:"pill",key:"caffeineUse",prompt:"Do you use caffeine (coffee, tea, energy drinks)?",opts:[{v:"yes",l:"Yes"},{v:"no",l:"No"}]},
+   {type:"pill",key:"lastCup",prompt:"When does your last cup usually land?",showIf:function(a){return a.caffeineUse==="yes"},opts:[{v:"am",l:"Morning only"},{v:"early",l:"Through early afternoon"},{v:"late",l:"Last cup after 2 PM"},{v:"vary",l:"It varies"}]},
+   {type:"keep",key:"energyKeep",prompt:"Pick the change you'll keep this week.",showIf:function(a){return a.caffeineUse==="yes"&&a.lastCup},opts:[
+    {v:"earlier",l:"Move my last cup earlier",d:"The highest-impact move when caffeine reaches late afternoon.",rec:true,cue:"Last coffee · by 2:30 PM"},{v:"cutoff",l:"Keep my morning cup, set a cutoff",d:"Use caffeine, but keep it from reaching your night.",cue:"Caffeine cutoff set"},{v:"daylight",l:"Try daylight before adding caffeine",d:"Light is the reset; caffeine becomes the backup.",cue:"Daylight before caffeine"},{v:"none",l:"No change this week"}]}]},
+
+ {num:"06",label:"Daylight",eyebrow:"Your daily light swing",title:"Where can you grab a <em>daytime reset?</em>",
+  sub:"A few minutes of daytime light tells your body it's still daytime, so caffeine doesn't have to carry the whole afternoon.",
+  blocks:[{type:"single",key:"daylight",prompt:"How much daylight does your day give you?",opts:[
+    {v:"indoors",l:"Mostly indoors, no windows nearby",d:"Your plan needs a deliberate light break."},{v:"windows",l:"Near windows sometimes",d:"A window can help, but outside is stronger."},{v:"step",l:"Can step outside during the day",d:"The simplest reliable reset."},{v:"often",l:"Outdoors often",d:"We can use what already exists."}]},
+   {type:"keep",key:"resets",multi:true,prompt:"Which resets can you reach during the day?",hint:"Pick every option that could fit.",showIf:function(a){return a.daylight},cue:"Daylight reset: 1 action",opts:[
+    {v:"5min",l:"5 minutes outside",d:"Bright daylight lifts the afternoon floor."},{v:"beforecup",l:"Daylight before an afternoon cup",d:"Try light first so caffeine is a backup."},{v:"walk",l:"A walk or movement break",d:"Raises alertness without pushing your night later.",rec:true},{v:"lunch",l:"Phone-free lunch",d:"Less stimulation, so the reset actually feels like one."},{v:"none",l:"No reliable reset yet"}]},
+   {type:"single",key:"naps",prompt:"How do naps fit your day?",opts:[{v:"no",l:"I don't nap"},{v:"short",l:"A short nap usually helps"},{v:"long",l:"Naps run long or late"},{v:"vary",l:"It varies"}]}]},
+
+ {num:"07",label:"Evening light",eyebrow:"Evening signal",title:"What does your <em>night signal</em> look like?",
+  sub:"Your wind-down clock reads bright, late light as daytime. Dimming the evening lets it settle on time.",
+  blocks:[{type:"single",key:"eveningNow",prompt:"Right now, your evenings include:",opts:[
+    {v:"bright",l:"Bright overhead lights until late",d:"Strongest evening signal that can push sleep later."},{v:"screens",l:"Screens until I'm in bed",d:"Keeps attention and light close to sleep."},{v:"dim",l:"A few dim warm lamps",d:"Usually a better wind-down signal."},{v:"red",l:"Red mode or blue blockers",d:"Helpful when screens stay on."},{v:"dark",l:"Mostly dark already",d:"No extra light move needed."}]},
+   {type:"keep",key:"eveningMoves",multi:true,max:3,prompt:"Your evening light moves",showIf:function(a){return a.eveningNow},cue:"Evening light: 1 move",opts:[
+    {v:"overhead",l:"Skip overhead lights after wind-down",d:"Removes the brightest late-day signal first.",rec:true},{v:"lamp",l:"One low warm lamp",d:"Keeps the room usable while the night signal rises."},{v:"redmode",l:"Red mode, brightness down",d:"Reduces screen light without demanding perfection."},{v:"phone",l:"Charge the phone out of bed",d:"Turns a friction point into a default."},{v:"none",l:"No change this week"}]}]},
+
+ {num:"08",label:"Wind-down",eyebrow:"The down-ramp",title:"What makes the last few hours <em>harder?</em>",
+  sub:"Light and stimulation late keep the body alert. Pick what fits your nights.",
+  blocks:[{type:"multi",key:"windFriction",prompt:"",opts:[
+    {v:"meal",l:"A late, heavy meal",d:"Digestion can keep the body active while you try to sleep."},{v:"mind",l:"A busy mind that won't settle",d:"The plan should include a downshift, not only a bedtime."},{v:"phone",l:"Phone in bed",d:"The cue is too close to the place you sleep."},{v:"light",l:"Too much light in the room",d:"Darkness is one of the clearest night signals."},{v:"room",l:"Warm, noisy, or interrupted room",d:"Environment friction can undo a good routine."},{v:"calm",l:"My evenings already feel calm",d:"Use this only if the last hours aren't the issue."}]},
+   {type:"keep",key:"windKeep",multi:true,max:3,prompt:"Pick what you'll actually try this week.",showIf:function(a){return (a.windFriction||[]).length},cue:"Wind-down: 1 move",opts:[
+    {v:"shower",l:"A warm shower to wind down",d:"A warm-to-cool shift helps the body settle.",rec:true},{v:"eat",l:"Eat earlier in the evening",d:"Gives digestion more room before lights out."},{v:"phone",l:"Charge the phone across the room",d:"Removes the easiest in-bed stimulation loop."},{v:"dark",l:"Darken the room",d:"Makes the sleep signal more consistent."},{v:"none",l:"Nothing this week"}]}]},
+
+ {num:"09",label:"Your rhythm map",eyebrow:"The cascade",title:"What's working <em>against your rhythm.</em>",
+  sub:"From your answers, these timing patterns stand out. Fix the keystone first — when the day starts on time, the afternoon dip and late-light pressure usually ease behind it. We pre-selected your top 3 for Week 1.",
+  blocks:[{type:"cascade"}],cta:"Lock my Week 1"},
+
+ {num:"10",label:"Plan ready",final:true}
+];
+
+/* bottleneck patterns + scoring */
+var PATTERNS=[
+ {id:"morning_anchor",nm:"Morning anchor",ds:"Wake + light land late or weak"},
+ {id:"afternoon_crash",nm:"Afternoon crash loop",ds:"Midday energy drops pull you toward caffeine or naps"},
+ {id:"late_light",nm:"Late light pressure",ds:"Bright evening light is delaying your wind-down cue"},
+ {id:"caffeine_spill",nm:"Caffeine spillover",ds:"Late caffeine may be fighting your night signal"},
+ {id:"wake_consistency",nm:"Wake-time consistency",ds:"An uneven wake time keeps the clock drifting"},
+ {id:"bed_friction",nm:"Bed/room friction",ds:"The room or routine undoes a good wind-down"},
+ {id:"daylight_gap",nm:"Daylight gap",ds:"The bright hours pass while you're indoors"},
+ {id:"screen_runoff",nm:"Screen runoff",ds:"Screens late keep attention and light near sleep"}
+];
+function scorePatterns(a){
+ var s={};PATTERNS.forEach(function(p){s[p.id]=0});
+ var g=a.goals||[];
+ function add(id,n){s[id]=(s[id]||0)+n}
+ if(g.indexOf("groggy")>-1){add("morning_anchor",3)} if(g.indexOf("fog")>-1){add("morning_anchor",3);add("daylight_gap",1)}
+ if(g.indexOf("unref")>-1){add("morning_anchor",2);add("late_light",1)}
+ if(g.indexOf("crash")>-1){add("afternoon_crash",3);add("daylight_gap",1)}
+ if(g.indexOf("caf")>-1){add("caffeine_spill",3);add("afternoon_crash",1)}
+ if(g.indexOf("wired")>-1){add("late_light",3);add("screen_runoff",1)}
+ if(g.indexOf("slip")>-1){add("wake_consistency",2);add("late_light",2)}
+ if(a.lightFirst==="dark"){add("morning_anchor",3)} if(a.lightFirst==="indoors"){add("morning_anchor",2)}
+ if(a.consistency==="120"||a.consistency==="none"){add("wake_consistency",3)} if(a.consistency==="60"){add("wake_consistency",1)}
+ if(a.energy==="crash"){add("afternoon_crash",2)} if(a.energy==="wired"){add("late_light",2)} if(a.energy==="slow"){add("morning_anchor",1)}
+ if(a.lastCup==="late"){add("caffeine_spill",3)} if(a.lastCup==="vary"){add("caffeine_spill",2)} if(a.lastCup==="early"){add("caffeine_spill",1)}
+ if(a.daylight==="indoors"){add("daylight_gap",3)} if(a.daylight==="windows"){add("daylight_gap",2)}
+ if(a.eveningNow==="bright"){add("late_light",3)} if(a.eveningNow==="screens"){add("late_light",2);add("screen_runoff",2)}
+ (a.windFriction||[]).forEach(function(w){if(w==="phone"){add("screen_runoff",2);add("bed_friction",1)}if(w==="room"||w==="light"){add("bed_friction",2)}if(w==="mind"){add("bed_friction",1)}});
+ // baseline so all 8 appear
+ PATTERNS.forEach(function(p,i){add(p.id,(8-i)*0.1)});
+ return PATTERNS.map(function(p){return{p:p,score:s[p.id]||0}}).sort(function(x,y){return y.score-x.score});
+}
+
+/* ---------- state ---------- */
+var answers={}, stepIdx=0, ranked=[], chosenPatterns={};
+function save(){try{localStorage.setItem("timeright_answers",JSON.stringify(answers));localStorage.setItem("timeright_done","1")}catch(e){}}
+function targetWakeMin(){return answers.targetWake!=null?answers.targetWake:390}      /* 6:30 */
+function sleepHours(){var w=targetWakeMin(),b=answers.targetBed!=null?answers.targetBed:1350;var span=mod(w-b);return Math.round(span/30)*0.5}
+
+/* week-1 cues derived from answers */
+function weekCues(){
+ var out=[];
+ if(answers.targetWake!=null) out.push("Wake anchor · "+fmt(answers.targetWake));
+ STEPS.forEach(function(st){(st.blocks||[]).forEach(function(b){
+   if(b.type!=="keep")return;var v=answers[b.key];if(!v)return;
+   if(b.multi){ if(v.length && v.indexOf("none")<0 && v.indexOf("not")<0 && b.cue) out.push(b.cue); }
+   else{ var o=b.opts.filter(function(x){return x.v===v})[0]; if(o&&o.cue) out.push(o.cue); }
+ })});
+ return out;
+}
+
+/* ============================================================ consult render */
+function renderConsult(){
+ var st=STEPS[stepIdx];
+ $("#csNum").textContent=st.num+" / 10";
+ $("#csLabel").textContent=st.label;
+ $("#csBar").style.width=((stepIdx+1)/STEPS.length*100)+"%";
+ renderSidePlan(); renderViz(st);
+ var m=$("#csMain");
+ if(st.final){ renderFinal(m); return; }
+ var h="";
+ h+='<button class="cs-back" id="csBack">'+(stepIdx>0?"‹ Back":"‹ Home")+'</button>';
+ h+='<span class="cs-eyebrow">'+esc(st.eyebrow)+'</span>';
+ h+='<h1>'+st.title+'</h1>';
+ if(st.sub) h+='<p class="cs-sub">'+esc(st.sub)+'</p>';
+ if(st.fine) h+='<p class="cs-fine">'+esc(st.fine)+'</p>';
+ st.blocks.forEach(function(b){ if(b.showIf&&!b.showIf(answers))return; h+=renderBlock(b); });
+ if(st.week1 && step2Ready()) h+='<div class="cs-week1"><b>Week 1</b>'+esc(st.week1)+'</div>';
+ h+='<div class="cs-foot">'+footBtn(st)+'</div>';
+ m.innerHTML=h;
+ wireConsult(st);
+}
+function footBtn(st){
+ var ok=stepComplete(st);
+ var lbl=st.cta||"Continue";
+ return '<button class="btn-primary" id="csNext" '+(ok?"":"disabled")+'>'+lbl+' ›</button>';
+}
+function renderBlock(b){
+ if(b.type==="sliders") return renderSliders();
+ if(b.type==="cascade") return renderCascade();
+ var h='<div class="cs-q">';
+ if(b.prompt){ h+='<div class="cs-q-head"><h3>'+esc(b.prompt)+'</h3>';
+   if(b.type==="multi"||b.multi){var n=(answers[b.key]||[]).length;h+='<span class="meta">'+n+' selected'+(b.max?(" · max "+b.max):"")+'</span>'}
+   else if(b.hint){h+='<span class="meta">'+esc(b.hint)+'</span>'}
+   h+='</div>'; }
+ else if(b.hint){h+='<div class="cs-q-head"><h3></h3><span class="meta">'+esc(b.hint)+'</span></div>'}
+ if(b.type==="pill"){
+   h+='<div class="pillrow">';
+   b.opts.forEach(function(o){var sel=answers[b.key]===o.v;h+='<button class="pill'+(sel?" sel":"")+'" data-k="'+b.key+'" data-v="'+o.v+'" data-pill="1">'+esc(o.l)+'</button>'});
+   h+='</div>';
+ } else {
+   var multi=(b.type==="multi"||b.multi);
+   b.opts.forEach(function(o){
+     var sel = multi ? (answers[b.key]||[]).indexOf(o.v)>-1 : answers[b.key]===o.v;
+     h+='<button class="opt'+(sel?" sel":"")+(o.sep?" sep":"")+'" data-k="'+b.key+'" data-v="'+o.v+'" data-multi="'+(multi?1:0)+'"'+(b.max?' data-max="'+b.max+'"':'')+'>';
+     h+='<span class="txt"><span class="label">'+esc(o.l)+'</span>'+(o.d?'<span class="desc">'+esc(o.d)+'</span>':'')+'</span>';
+     if(o.rec) h+='<span class="rec">Recommended</span>';
+     h+='<svg class="check" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+     h+='</button>';
+   });
+ }
+ h+='</div>';
+ return h;
+}
+function renderSliders(){
+ if(answers.curWake==null)answers.curWake=420; if(answers.curBed==null)answers.curBed=1410;
+ if(answers.targetWake==null)answers.targetWake=390; if(answers.targetBed==null)answers.targetBed=1350;
+ function row(name,key,val,min,max){
+   return '<div class="slider-row"><div class="top"><span class="name">'+name+'</span><span class="val" id="v_'+key+'">'+fmt(val)+'</span></div>'+
+   '<input type="range" id="s_'+key+'" min="'+min+'" max="'+max+'" step="15" value="'+val+'"><div class="ends"><span>'+fmt(min)+'</span><span>'+fmt(max)+'</span></div></div>';
+ }
+ var inbed=mod(answers.curWake-answers.curBed);
+ var h='<div class="rhythm-card"><div class="rc-lbl">Your current rhythm</div>'+
+   row("I wake up around","curWake",answers.curWake,240,660)+
+   row("Lights out now","curBed",answers.curBed,1200,1560)+
+   '<div class="rc-note" id="curNote">Right now, that gives you about '+hm(inbed)+' in bed.</div></div>';
+ h+='<div class="rhythm-card" style="margin-top:12px"><div class="rc-lbl">Target rhythm</div>'+
+   row("Wake target","targetWake",answers.targetWake,240,660)+
+   row("Lights-out target","targetBed",answers.targetBed,1200,1560)+
+   '<div class="rc-note" id="tgtNote">Target sleep window: '+hm(mod(answers.targetWake-answers.targetBed))+'. As wake moves, lights-out moves with it.</div></div>';
+ return h;
+}
+function hm(mins){var h=Math.floor(mins/60),m=mins%60;return h+"h"+(m?" "+m+"min":"")}
+function renderCascade(){
+ ranked=scorePatterns(answers);
+ if(!Object.keys(chosenPatterns).length){ranked.slice(0,3).forEach(function(r){chosenPatterns[r.p.id]=1})}
+ var h='<div class="casc"><div class="casc-head"><span>Your timing patterns</span><span>'+countChosen()+' in your plan</span></div>';
+ ranked.forEach(function(r,i){
+   var inp=chosenPatterns[r.p.id], key=i===0;
+   h+='<div class="crow'+(inp?" in":"")+(key?" key":"")+'" data-pat="'+r.p.id+'">';
+   h+='<span class="rk">'+pad(i+1)+'</span><div class="body">';
+   h+='<div class="tier">'+(i===0?"Highest leverage":i<3?"In Week 1":"Useful next")+'</div>';
+   h+='<div class="nm">'+esc(r.p.nm)+'</div><div class="ds">'+esc(r.p.ds)+'</div></div>';
+   h+='<span class="pick">'+(inp?"✓ in plan":"add")+'</span></div>';
+ });
+ h+='</div>';
+ return h;
+}
+function countChosen(){return Object.keys(chosenPatterns).filter(function(k){return chosenPatterns[k]}).length}
+
+function renderFinal(m){
+ var cues=weekCues();
+ var h='<div class="cs-final"><span class="eyebrow">Your plan is ready</span>';
+ h+='<h1>Your day, <em>timed right.</em></h1>';
+ h+='<p>Built from your real answers — your timed day, your Week 1 cues, and the lever that moves the most.</p>';
+ h+='<div class="plan-card"><div class="pc-top"><span>Week 1 · '+cues.length+' cues</span><span>'+esc((ranked[0]&&ranked[0].p.nm)||"")+'</span></div><ul>';
+ cues.forEach(function(c){h+='<li>'+esc(c)+'</li>'});
+ h+='</ul></div>';
+ h+='<button class="btn-primary" id="csFinish">See my day ›</button>';
+ h+='<div class="fine">Saved on this device. No account needed. Educational wellness, not medical care.</div></div>';
+ m.innerHTML=h;
+ $("#csFinish").addEventListener("click",finishConsult);
+}
+
+function step2Ready(){return answers.targetWake!=null}
+function stepComplete(st){
+ if(st.final)return true;
+ if(st.blocks.some(function(b){return b.type==="cascade"})) return countChosen()>0;
+ // require: every visible non-keep, non-sliders primary block has an answer
+ var ok=true;
+ st.blocks.forEach(function(b){
+   if(b.showIf&&!b.showIf(answers))return;
+   if(b.type==="sliders")return; // has defaults
+   if(b.type==="keep")return;    // optional-ish but encouraged; not required to proceed
+   if(b.type==="multi"){ if(!(answers[b.key]||[]).length) ok=false; }
+   else { if(answers[b.key]==null) ok=false; }
+ });
+ return ok;
+}
+
+function wireConsult(st){
+ var back=$("#csBack"); if(back) back.addEventListener("click",function(){ if(stepIdx>0){stepIdx--;renderConsult();window.scrollTo(0,0);} else { goHomeFromConsult(); } });
+ var next=$("#csNext"); if(next) next.addEventListener("click",function(){ if(!stepComplete(st))return; stepIdx++; renderConsult(); window.scrollTo(0,0); });
+ $$(".opt",$("#csMain")).forEach(function(el){el.addEventListener("click",function(){
+   var k=el.getAttribute("data-k"),v=el.getAttribute("data-v"),multi=el.getAttribute("data-multi")==="1",max=parseInt(el.getAttribute("data-max")||"0",10);
+   if(multi){ var arr=answers[k]?answers[k].slice():[]; var ix=arr.indexOf(v);
+     if(ix>-1)arr.splice(ix,1); else { if(v==="none"||v==="not"||v==="calm"){arr=[v]} else { arr=arr.filter(function(x){return x!=="none"&&x!=="not"&&x!=="calm"}); if(max&&arr.length>=max){arr.shift()} arr.push(v); } }
+     answers[k]=arr; renderConsult();
+   } else { answers[k]=v; renderConsult(); }
+ })});
+ $$("[data-pill]",$("#csMain")).forEach(function(el){el.addEventListener("click",function(){
+   var k=el.getAttribute("data-k"),v=el.getAttribute("data-v"); answers[k]=v;
+   if(k==="caffeineUse"&&v==="no"){delete answers.lastCup;delete answers.energyKeep}
+   renderConsult();
+ })});
+ $$(".crow",$("#csMain")).forEach(function(el){el.addEventListener("click",function(){
+   var id=el.getAttribute("data-pat"); chosenPatterns[id]=!chosenPatterns[id]; if(!chosenPatterns[id])delete chosenPatterns[id]; renderConsult();
+ })});
+ ["curWake","curBed","targetWake","targetBed"].forEach(function(key){
+   var s=$("#s_"+key); if(!s)return;
+   s.addEventListener("input",function(){ answers[key]=parseInt(s.value,10);
+     $("#v_"+key).textContent=fmt(answers[key]);
+     var cn=$("#curNote"); if(cn)cn.textContent="Right now, that gives you about "+hm(mod(answers.curWake-answers.curBed))+" in bed.";
+     var tn=$("#tgtNote"); if(tn)tn.textContent="Target sleep window: "+hm(mod(answers.targetWake-answers.targetBed))+". As wake moves, lights-out moves with it.";
+     renderSidePlan();
+     var nb=$("#csNext"); if(nb)nb.disabled=!stepComplete(st);
+   });
+ });
+}
+function renderSidePlan(){
+ var cues=weekCues(); var list=$("#csPlanList"),empty=$("#csPlanEmpty");
+ $("#csCount").textContent=cues.length+(cues.length===1?" cue":" cues");
+ if(!cues.length){list.innerHTML="";empty.style.display="block";return}
+ empty.style.display="none";
+ list.innerHTML=cues.map(function(c){return '<li>'+esc(c)+'</li>'}).join("");
+}
+function renderViz(st){
+ var v=$("#csViz");
+ // simple contextual sparkline per step + caption
+ var caps={ "01":"Tick a problem — watch where it lands on your day.","02":"A steady wake time keeps your clock from drifting.","03":"Your night timer starts at dawn.","04":"A small habit you repeat beats a perfect one you skip.","05":"Caffeine fades slowly — about half is still with you 5–6 h on.","06":"Daylight sets how big the daily swing gets.","07":"Bright, late light pushes your wind-down later.","08":"Each friction pushes the slope back up.","09":"Fix the keystone — the rest tends to ease behind it." };
+ var arc='<svg viewBox="0 0 230 90"><path d="M8 78 Q115 6 222 78" fill="none" stroke="url(#vg)" stroke-width="2.5" stroke-linecap="round"/><defs><linearGradient id="vg" x1="0" x2="1"><stop offset="0" stop-color="#FF8E54"/><stop offset=".5" stop-color="#39B6DE"/><stop offset="1" stop-color="#5560C4"/></linearGradient></defs><line x1="6" y1="78" x2="224" y2="78" stroke="rgba(23,19,13,.12)"/></svg>';
+ v.innerHTML=arc+'<div class="cap">'+esc(caps[st.num]||"")+'</div>';
+}
+function goHomeFromConsult(){ if(localStorage.getItem("timeright_done")){setView("today")} }
+
+function finishConsult(){
+ ranked=scorePatterns(answers);
+ if(!Object.keys(chosenPatterns).length){ranked.slice(0,3).forEach(function(r){chosenPatterns[r.p.id]=1})}
+ save(); $("#vtoggle").style.display="inline-flex"; $("#recalBtn").style.display="inline-flex";
+ setView("today"); renderToday(); renderPlan();
+}
+
+/* ============================================================ build day schedule */
+function build(){
+ var wakeMin=targetWakeMin(), sleepH=sleepHours(); if(!(sleepH>0))sleepH=8;
+ var bedOff=Math.round((24-sleepH)*60);
+ return PROTOCOLS.map(function(p){
+   var a,b,sort;
+   if(p.bedRel!=null){var c=bedOff-p.bedRel;a=b=c;sort=c}
+   else if(p.win){a=p.win[0];b=p.win[1];sort=(p.at!=null?p.at:(a+b)/2)}
+   else{a=b=p.at;sort=p.at}
+   return{p:p,phase:p.phase,startMin:mod(wakeMin+a),endMin:mod(wakeMin+b),relStart:a,relEnd:b,isWindow:a!==b,sort:sort,bedOff:bedOff};
+ }).sort(function(x,y){return x.sort-y.sort});
+}
+/* map week-1 cues / chosen patterns to which protocol ids to flag as "focus" */
+function focusIds(){
+ var ids={};
+ var keepMap={"5-10":"light","commute":"light","device":"light","pushups":"train","meal":"protein","earlier":"cutoff","cutoff":"cutoff","daylight":"afternoon"};
+ if(answers.lightKeep&&keepMap[answers.lightKeep])ids[keepMap[answers.lightKeep]]=1;
+ if(answers.morningKeep&&keepMap[answers.morningKeep])ids[keepMap[answers.morningKeep]]=1;
+ if(answers.energyKeep&&keepMap[answers.energyKeep])ids[keepMap[answers.energyKeep]]=1;
+ if((answers.resets||[]).length&&(answers.resets||[]).indexOf("none")<0)ids.afternoon=1;
+ if((answers.eveningMoves||[]).length&&(answers.eveningMoves||[]).indexOf("none")<0)ids.evening=1;
+ if((answers.windKeep||[]).length&&(answers.windKeep||[]).indexOf("none")<0)ids.winddown=1;
+ ids.light=1; ids.lightsout=1; // always anchors
+ // from cascade keystone
+ var pat={morning_anchor:["light","hydrate"],afternoon_crash:["afternoon","cutoff"],late_light:["evening","winddown"],caffeine_spill:["cutoff"],wake_consistency:["lightsout"],bed_friction:["winddown"],daylight_gap:["afternoon","light"],screen_runoff:["winddown","evening"]};
+ Object.keys(chosenPatterns).forEach(function(p){(pat[p]||[]).forEach(function(i){ids[i]=1})});
+ return ids;
+}
+
+/* ============================================================ TODAY render */
+function phaseRange(items,phase){var ph=items.filter(function(i){return i.phase===phase});if(!ph.length)return"";var mn=Infinity,mx=-Infinity,mi=ph[0],ma=ph[0];ph.forEach(function(i){if(i.relStart<mn){mn=i.relStart;mi=i}if(i.relEnd>mx){mx=i.relEnd;ma=i}});var a=fmtShort(mi.startMin),b=fmtShort(ma.endMin);return a===b?a:a+" – "+b}
+function computeNext(items,nowMin,wakeMin){function rel(m){return mod(m-wakeMin)}var bedOff=items[0].bedOff,nowRel=rel(nowMin);var up=items.filter(function(i){return rel(i.startMin)>=nowRel}).sort(function(a,b){return rel(a.startMin)-rel(b.startMin)});return{next:up[0]||null,nowRel:nowRel,bedOff:bedOff}}
+var SRC={foundation:"foundation",huberman:"huberman",bakri:"bakri",both:"both"};
+function renderToday(){
+ var items=build(),bedOff=items[0].bedOff,wakeMin=targetWakeMin(),sleepH=sleepHours();
+ var now=new Date(),nowMin=now.getHours()*60+now.getMinutes();
+ var info=computeNext(items,nowMin,wakeMin), foc=focusIds();
+ var fl=items.filter(function(i){return i.p.id==="light"})[0],caf=items.filter(function(i){return i.p.id==="caffeine"})[0],bed=items.filter(function(i){return i.p.id==="lightsout"})[0];
+ $("#summary").innerHTML=anchor("☀","First light by",fmt(fl.endMin),"")+anchor("◔","Caffeine",fmt(caf.startMin),"→ "+fmt(caf.endMin))+anchor("☾","Lights out",fmt(bed.startMin),"~"+sleepH+"h");
+ $("#sleepBadge").textContent="☾ "+fmt(bed.startMin)+" – "+fmt(wakeMin)+" · "+sleepH+"h";
+ $("#date").textContent=now.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"});
+ var hr=now.getHours();$("#greet").textContent=hr<5?"Still night.":hr<12?"Good morning.":hr<18?"Good afternoon.":hr<22?"Good evening.":"Wind down.";
+ var up=$("#up");
+ if(info.nowRel>bedOff&&info.nowRel<1410){up.innerHTML='<span class="lbl">now</span> <b>Past lights-out.</b> <span class="cd">Protect your sleep — screens down, room cool.</span>';}
+ else if(info.next){var mins=mod(info.next.startMin-wakeMin)-info.nowRel;if(mins<0)mins+=1440;var cd=mins<=0?"now":mins<60?"in "+mins+" min":"in "+Math.floor(mins/60)+"h"+(mins%60?" "+(mins%60)+"m":"");up.innerHTML='<span class="lbl">up next</span> <b>'+esc(info.next.p.title)+'</b> · '+fmt(info.next.startMin)+' <span class="cd">'+cd+'</span>';}
+ else up.innerHTML="";
+ // focus chips
+ var cues=weekCues();
+ if(cues.length){$("#focusbar").style.display="block";$("#focusChips").innerHTML=cues.map(function(c){return '<span class="chip">'+esc(c)+'</span>'}).join("");}
+ else $("#focusbar").style.display="none";
+ // timeline
+ var html="",cur=null;
+ items.forEach(function(it){
+   if(it.phase!==cur){cur=it.phase;var ph=PHASES[cur];html+='<div class="phase-label"><span class="dot" style="background:'+ph.color+'"></span><h4>'+ph.name+'</h4><span class="rng">'+phaseRange(items,cur)+'</span></div>';}
+   var isNext=info.next&&it===info.next&&!(info.nowRel>bedOff);
+   var isNow=it.isWindow&&info.nowRel>=it.relStart&&info.nowRel<=it.relEnd&&info.nowRel<=bedOff;
+   var isFocus=foc[it.p.id];
+   var sub=it.isWindow?"until "+fmtShort(it.endMin):"";
+   var badge=isNow?'<span class="badge now">now</span>':isNext?'<span class="badge next">next</span>':(isFocus?'<span class="badge focus">week 1</span>':'');
+   html+='<div class="tl-item'+(isNext?" is-next":"")+(isNow?" is-now":"")+'"><details class="card">'+
+     '<span class="tl-node" style="--node:'+PHASES[it.phase].color+'"></span>'+
+     '<summary><span class="c-time">'+fmt(it.startMin)+(sub?'<small>'+sub+'</small>':'')+'</span>'+
+     '<span class="c-main"><span class="c-title">'+esc(it.p.title)+badge+'</span><span class="c-line">'+esc(it.p.line)+'</span></span>'+
+     '<span class="c-chev"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>'+
+     '<div class="c-why">'+esc(it.p.why)+'<div><span class="src '+SRC[it.p.src]+'"><svg width="9" height="9" viewBox="0 0 10 10" style="margin-right:1px"><circle cx="5" cy="5" r="4" fill="currentColor"/></svg>'+esc(it.p.srcLabel)+'</span></div></div>'+
+     '</details></div>';
+ });
+ $("#timeline").innerHTML=html;
+ drawArc(info,bedOff);
+}
+function anchor(ic,k,v,sub){return '<div class="anchor"><div class="k">'+ic+' '+k+'</div><div class="v">'+v+(sub?' <small>'+sub+'</small>':'')+'</div></div>'}
+function drawArc(info,bedOff){var path=$("#liveArcPath"),sun=$("#laSun"),nl=$("#laNow");if(!path||!path.getTotalLength)return;try{var L=path.getTotalLength(),f=info.nowRel/bedOff,down=f<0||f>1,cf=Math.max(0,Math.min(1,f)),pt=path.getPointAtLength(cf*L);sun.setAttribute("transform","translate("+pt.x.toFixed(1)+","+pt.y.toFixed(1)+")");sun.classList.toggle("down",down);if(!down){nl.style.display="";nl.setAttribute("x1",pt.x.toFixed(1));nl.setAttribute("x2",pt.x.toFixed(1));nl.setAttribute("y1",(pt.y+6).toFixed(1))}else nl.style.display="none"}catch(e){}}
+
+/* ============================================================ PLAN render */
+function renderPlan(){
+ if(!ranked.length)ranked=scorePatterns(answers);
+ var top=ranked[0]&&ranked[0].p;
+ if(top){$("#leverName").textContent=top.nm;$("#leverDesc").textContent=top.ds+".";$("#planLeverTitle").innerHTML="Start with <em>"+esc(top.nm.toLowerCase())+".</em>";}
+ var inplan=Object.keys(chosenPatterns);
+ var cl=$("#cascadeList");cl.innerHTML=ranked.map(function(r,i){
+   var inp=chosenPatterns[r.p.id];
+   return '<div class="crow'+(inp?" in":"")+(i===0?" key":"")+'"><span class="rk">'+pad(i+1)+'</span><div class="body"><div class="tier">'+(i===0?"Highest leverage":inp?"In Week 1":"Useful next")+'</div><div class="nm">'+esc(r.p.nm)+'</div><div class="ds">'+esc(r.p.ds)+'</div></div><span class="pick">'+(inp?"✓ in plan":"")+'</span></div>';
+ }).join("");
+ $("#cascCount").textContent=inplan.length+" in your Week 1";
+ var cues=weekCues();
+ $("#weekCues").innerHTML=cues.map(function(c,i){return '<div class="w1cue"><span class="ix">'+(i+1)+'</span><span class="t">'+esc(c)+'</span></div>'}).join("");
+ if(top){$("#badday").textContent= top.id==="morning_anchor"||top.id==="wake_consistency" ? "Morning light + a steady wake time. If you do nothing else, do these two." : "Hold your wake anchor and your "+top.nm.toLowerCase()+" cue. Everything else is a bonus.";}
+}
+
+/* ============================================================ views */
+function setView(v){
+ $$(".view").forEach(function(el){el.classList.toggle("active",el.id===v)});
+ $$("#vtoggle button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-view")===v)});
+ document.body.classList.toggle("dark",v==="science");
+ $("#themeColor").setAttribute("content",v==="science"?"#0C1030":"#FAF6EF");
+ var inConsult=(v==="consult");
+ $("#vtoggle").style.display=inConsult?"none":(localStorage.getItem("timeright_done")?"inline-flex":"none");
+ $("#recalBtn").style.display=(inConsult||!localStorage.getItem("timeright_done"))?"none":"inline-flex";
+ window.scrollTo(0,0);
+}
+function startConsult(){ stepIdx=0; chosenPatterns={}; setView("consult"); renderConsult(); }
+
+function stars(){var box=$("#stars");if(!box)return;var h="";for(var i=0;i<80;i++){var x=(i*53)%100,y=(i*31)%100,d=i%5,s=(i%3)+1;h+='<span class="star" style="left:'+x+'%;top:'+y+'%;width:'+s+'px;height:'+s+'px;animation-delay:'+d+'s"></span>'}box.innerHTML=h}
+
+function init(){
+ try{["answers","done"].forEach(function(k){var o=localStorage.getItem("calibrate_"+k);if(o!=null&&localStorage.getItem("timeright_"+k)==null)localStorage.setItem("timeright_"+k,o)})}catch(e){}
+ stars();
+ var done=localStorage.getItem("timeright_done");
+ if(done){ try{answers=JSON.parse(localStorage.getItem("timeright_answers")||"{}")}catch(e){answers={}} ranked=scorePatterns(answers); ranked.slice(0,3).forEach(function(r){chosenPatterns[r.p.id]=1}); setView("today"); renderToday(); renderPlan(); }
+ else { startConsult(); }
+ $$("#vtoggle button").forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-view");setView(v);if(v==="today")renderToday();if(v==="plan")renderPlan();})});
+ $("#recalBtn").addEventListener("click",startConsult);
+ $("#brandHome").addEventListener("click",function(e){e.preventDefault();if(localStorage.getItem("timeright_done"))setView("today")});
+ var ts=$("#toSci");if(ts)ts.addEventListener("click",function(){setView("science")});
+ var fp=$("#focusToPlan");if(fp)fp.addEventListener("click",function(){setView("plan");renderPlan()});
+ setInterval(function(){if($("#today").classList.contains("active"))renderToday()},30000);
+ window.addEventListener("load",function(){if($("#today").classList.contains("active"))renderToday()});
+ window.addEventListener("resize",function(){if($("#today").classList.contains("active"))renderToday()});
+}
+document.addEventListener("DOMContentLoaded",init);
+})();
+</script>
+</body>
+</html>
