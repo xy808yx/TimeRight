@@ -17,9 +17,9 @@
 <style>
 :root{
   --paper:#FAF6EF; --paper-2:#F3ECE0; --paper-3:#ECE2D2;
-  --ink:#17130D; --ink-2:#4B4339; --ink-3:#8A7E6E;
+  --ink:#17130D; --ink-2:#4B4339; --ink-3:#6F6456;
   --line:rgba(23,19,13,.10); --line-2:rgba(23,19,13,.06);
-  --sun:#E0772A; --sun-deep:#C5641E; --sun-soft:#F6A23A;
+  --sun:#E0772A; --sun-deep:#B65613; --sun-soft:#F6A23A;
   --night:#0C1030; --night-2:#141A47; --night-ink:#EAE6F4; --night-ink-2:#A7A6CE; --night-line:rgba(255,255,255,.10);
   --p-dawn:#FF8E54; --p-morning:#FFC24B; --p-midday:#39B6DE; --p-afternoon:#6AA9CF; --p-evening:#A964C9; --p-night:#5560C4;
   --src-huberman:#D9772B; --src-bakri:#2E9E86; --src-foundation:#8A7E6E;
@@ -46,6 +46,9 @@ html{-webkit-text-size-adjust:100%}
 body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;min-height:100vh;transition:background .5s var(--ease);padding-top:env(safe-area-inset-top)}
 body.dark{background:var(--night)}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+/* visible keyboard focus — keyed to :focus-visible so mouse/touch stay clean */
+.opt:focus-visible,.pill:focus-visible,.crow:focus-visible,.card summary:focus-visible,.faq-list summary:focus-visible,.vtoggle button:focus-visible,.recal:focus-visible,.btn-primary:focus-visible,.cs-back:focus-visible,.fb-lbl a:focus-visible,.disclaimer-mini a:focus-visible,.keepbtn:focus-visible,.clk button:focus-visible,.skip-link:focus{outline:2px solid var(--sun);outline-offset:2px;border-radius:6px}
+body.dark :focus-visible{outline-color:var(--sun-soft)}
 h1,h2,h3,h4{font-family:var(--font-display);font-weight:var(--w-reg);line-height:1.1;letter-spacing:-.015em}
 .grain{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.03;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
@@ -64,7 +67,7 @@ body.dark .vtoggle{background:rgba(255,255,255,.06);border-color:var(--night-lin
 .vtoggle button.on{background:#fff;color:var(--ink);box-shadow:0 2px 8px -4px rgba(23,19,13,.4)}
 body.dark .vtoggle button{color:var(--night-ink-2)}
 body.dark .vtoggle button.on{background:var(--night-2);color:#fff;box-shadow:none}
-.recal{font-family:var(--font-body);font-size:var(--fs-xs);font-weight:var(--w-med);letter-spacing:.01em;color:var(--ink-3);background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.4em;flex:0 0 auto}
+.recal{font-family:var(--font-body);font-size:var(--fs-xs);font-weight:var(--w-med);letter-spacing:.01em;color:var(--ink-3);background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.4em;flex:0 0 auto;min-height:44px;min-width:44px}
 .recal:hover{color:var(--sun-deep)}
 body.dark .recal{color:var(--night-ink-2)}
 @media(max-width:560px){.recal span{display:none}}
@@ -107,7 +110,7 @@ body.dark .recal{color:var(--night-ink-2)}
 .cs-progress i{display:block;height:100%;background:var(--sun);border-radius:3px;transition:width .5s var(--ease)}
 
 .cs-main{padding:clamp(22px,4vw,44px) clamp(16px,4vw,40px);max-width:780px}
-.cs-back{font-family:var(--font-body);font-size:.9rem;color:var(--ink-3);background:none;border:none;cursor:pointer;display:flex;width:fit-content;align-items:center;gap:.4em;margin-bottom:1.2rem;padding:0}
+.cs-back{font-family:var(--font-body);font-size:var(--fs-sm);color:var(--ink-3);background:none;border:none;cursor:pointer;display:flex;width:fit-content;align-items:center;gap:.4em;margin-bottom:1.2rem;padding:0}
 .cs-back:hover{color:var(--ink)}
 .cs-eyebrow{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep)}
 .cs-main h1{font-size:var(--fs-h1);font-weight:var(--w-reg);letter-spacing:-.02em;margin:.5rem 0 .6rem}
@@ -148,13 +151,15 @@ body.dark .recal{color:var(--night-ink-2)}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--line);border-radius:3px;margin:.7rem 0 .2rem;outline:none}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--ink);cursor:pointer;border:3px solid var(--paper);box-shadow:0 2px 6px -2px rgba(0,0,0,.4)}
 input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--ink);cursor:pointer;border:3px solid var(--paper)}
+input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--sun) 38%,transparent)}
+input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--sun) 38%,transparent)}
 .slider-row .ends{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:var(--fs-label);color:var(--ink-3)}
 .rc-note{font-size:var(--fs-sm);color:var(--ink-2);margin-top:.8rem}
 
 /* cascade (step 9) */
 .casc{margin-top:1.4rem}
 .casc-head{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3);margin-bottom:.4rem}
-.crow{display:flex;align-items:flex-start;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--line-2);cursor:pointer;transition:.2s;position:relative;border-left:2px solid transparent;padding-left:.2rem}
+.crow{display:flex;align-items:flex-start;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--line-2);border-top:0;border-right:0;cursor:pointer;transition:.2s;position:relative;border-left:2px solid transparent;padding-left:.2rem;font:inherit;color:inherit;width:100%;text-align:left;background:none}
 .crow .rk{font-family:var(--font-mono);font-size:var(--fs-sm);color:var(--ink-3);width:22px;flex:0 0 auto;padding-top:.15rem}
 .crow .body .tier{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3)}
 .crow .body .nm{font-size:var(--fs-md);font-weight:var(--w-semi);margin-top:.05rem}
@@ -198,6 +203,8 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .now-status .up .lbl{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep);background:rgba(224,119,42,.1);padding:.3em .6em;border-radius:100px}
 .now-status .up b{color:var(--ink);font-weight:var(--w-semi)}
 .now-status .up .cd{font-family:var(--font-mono);color:var(--ink-3);font-size:var(--fs-sm)}
+.now-status .up .now-line,.now-status .up .next-line{flex-basis:100%;display:flex;flex-wrap:wrap;gap:.35em .6em;align-items:baseline;justify-content:center}
+.now-status .up .now-line .lbl{background:var(--sun-deep);color:#fff}
 .focusbar{margin-top:16px;border:1px solid var(--line);border-radius:var(--r-md);padding:clamp(14px,2.5vw,18px);background:var(--paper)}
 .focusbar .fb-lbl{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3);margin-bottom:.7rem;display:flex;justify-content:space-between}
 .focusbar .fb-lbl a{color:var(--sun-deep);text-decoration:none;cursor:pointer}
@@ -217,7 +224,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .phase-label{display:flex;align-items:center;gap:.6em;margin:1.4rem 0 .3rem;padding-left:46px}
 .phase-label:first-child{margin-top:.4rem}
 .phase-label .dot{width:9px;height:9px;border-radius:50%}
-.phase-label h4{font-size:var(--fs-label);font-family:var(--font-body);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-2)}
+.phase-label h3{font-size:var(--fs-label);font-family:var(--font-body);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-2)}
 .phase-label .rng{font-family:var(--font-mono);font-size:var(--fs-label);color:var(--ink-3);margin-left:auto}
 .tl-item{position:relative;padding-left:46px}
 .tl-item::before{content:"";position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--p-dawn),var(--p-morning) 22%,var(--p-midday) 45%,var(--p-afternoon) 60%,var(--p-evening) 80%,var(--p-night));opacity:.3}
@@ -237,7 +244,7 @@ details.card[open]{border-bottom-color:transparent}
 .c-chev{flex:0 0 auto;color:var(--ink-3);transition:transform .3s var(--ease);margin-top:.25rem}
 details[open] .c-chev{transform:rotate(90deg)}
 .badge{display:inline-block;font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;padding:.25em .6em;border-radius:100px;vertical-align:middle;margin-left:.5em}
-.badge.next{background:var(--sun);color:#fff}.badge.now{background:var(--ink);color:var(--paper)}.badge.focus{background:rgba(224,119,42,.14);color:var(--sun-deep)}
+.badge.next{background:var(--sun-deep);color:#fff}.badge.now{background:var(--ink);color:var(--paper)}.badge.focus{background:rgba(224,119,42,.14);color:var(--sun-deep)}
 .tl-item.is-next details.card,.tl-item.is-now details.card{background:linear-gradient(90deg,rgba(246,162,58,.10),transparent 70%);border-radius:14px}
 .tl-item.is-next .tl-node{box-shadow:0 0 0 5px rgba(224,119,42,.18)}
 .c-why{padding:0 0 1.2rem 0;margin-left:calc(84px + 1rem);color:var(--ink-2);font-size:var(--fs-sm);max-width:60ch;animation:reveal .35s var(--ease-out)}
@@ -268,7 +275,7 @@ details[open] .c-chev{transform:rotate(90deg)}
 @media(max-width:680px){.ramp{grid-template-columns:repeat(2,1fr)}}
 .rweek{border:1px solid var(--line);border-radius:var(--r-sm);padding:1rem;background:var(--paper)}
 .rweek .wk{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep)}
-.rweek h4{font-size:var(--fs-h3);font-weight:var(--w-reg);margin:.3rem 0 .35rem}
+.rweek h3{font-size:var(--fs-h3);font-weight:var(--w-reg);margin:.3rem 0 .35rem}
 .rweek p{font-size:var(--fs-sm);color:var(--ink-2)}
 .badday{margin-top:14px;font-size:var(--fs-sm);color:var(--ink-2);border-left:2px solid var(--sun);padding-left:.9rem}
 .badday b{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep);display:block;margin-bottom:.15rem}
@@ -318,7 +325,7 @@ body.dark .stars{opacity:.85}
 @media(max-width:680px){.constraints{grid-template-columns:1fr}}
 .cons{border:1px solid var(--night-line);border-radius:var(--r-sm);padding:1.1rem;background:rgba(255,255,255,.02)}
 .cons .n{font-family:var(--font-mono);font-size:var(--fs-label);color:var(--sun-soft)}
-.cons h4{font-size:var(--fs-h3);font-weight:var(--w-reg);color:var(--night-ink);margin:.3rem 0 .3rem}
+.cons h3{font-size:var(--fs-h3);font-weight:var(--w-reg);color:var(--night-ink);margin:.3rem 0 .3rem}
 .cons p{font-size:var(--fs-sm);color:var(--night-ink-2)}
 .faq-list h3.sub{color:var(--night-ink);font-size:var(--fs-h3);font-weight:var(--w-reg);margin-bottom:.3rem}
 .faq-list details{border-top:1px solid var(--night-line)}
@@ -334,9 +341,63 @@ body.dark .stars{opacity:.85}
 .faq-list .ans{padding:0 0 1.3rem;color:var(--night-ink-2);max-width:64ch;font-size:var(--fs-sm);animation:reveal .35s var(--ease-out)}
 .sci-disclaimer{margin-top:30px;padding-top:18px;border-top:1px solid var(--night-line);font-size:var(--fs-xs);color:var(--night-ink-2);max-width:66ch}
 .sci-disclaimer a{color:var(--sun-soft)}
+
+/* skip link — visible only on keyboard focus */
+.skip-link{position:absolute;left:-999px;top:-999px;z-index:9999}
+.skip-link:focus{left:clamp(14px,4vw,26px);top:8px;background:var(--sun);color:#fff;padding:.5em 1em;border-radius:100px;font-family:var(--font-body);font-weight:var(--w-semi);font-size:var(--fs-sm)}
+
+/* clock 12h/24h toggle (Today footer) */
+.clk{display:inline-flex;align-items:center}
+.clk button{font-family:var(--font-body);font-size:var(--fs-xs);color:var(--ink-3);background:none;border:none;cursor:pointer;padding:.15em .25em}
+.clk button.on{color:var(--sun-deep);font-weight:var(--w-semi)}
+.clk button:hover{color:var(--ink)}
+
+/* keep / export plan */
+.keep{margin-top:26px;border:1px solid var(--line);border-radius:var(--r-md);padding:clamp(16px,2.5vw,22px);background:var(--paper)}
+.keep .kl{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-3);margin-bottom:.85rem}
+.keep-row{display:flex;flex-wrap:wrap;gap:.6rem}
+.keepbtn{font-family:var(--font-body);font-size:var(--fs-sm);font-weight:var(--w-med);color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:100px;padding:.6em 1.1em;min-height:44px;cursor:pointer;display:inline-flex;align-items:center;gap:.5em;transition:border-color .2s,color .2s}
+.keepbtn:hover{border-color:var(--sun);color:var(--sun-deep)}
+.keepbtn .gl{font-size:1.05em;line-height:1}
+.keep-note{font-size:var(--fs-xs);color:var(--ink-3);margin-top:.85rem;max-width:62ch;transition:color .3s}
+.keep-note.ok{color:var(--sun-deep)}
+
+/* ===== narrow-phone polish ===== */
+@media(max-width:560px){
+  input[type=range]::-webkit-slider-thumb{width:28px;height:28px;border-width:4px}
+  input[type=range]::-moz-range-thumb{width:28px;height:28px;border-width:4px}
+  .btn-primary{padding:.95em 1.5em}
+}
+@media(max-width:480px){
+  .vtoggle button{padding:.4em .7em;font-size:var(--fs-xs)}
+  .phase-label,.tl-item{padding-left:32px}
+  .tl-node{left:4px}
+  .phase-label .rng{display:none}
+  .cs-side h2{font-size:1rem}
+  .crow{gap:.7rem}
+  .crow .body{min-width:0}
+  .crow .body .nm{font-size:var(--fs-sm)}
+  .crow .pick{font-size:var(--fs-xs)}
+  .keep-row .keepbtn{flex:1 1 auto;justify-content:center}
+}
+
+/* ===== print: a clean paper version of the active view ===== */
+@media print{
+  .appbar,.grain,.stars,.vtoggle,.recal,.disclaimer-mini,.keep,.cs-foot,.skip-link,.c-chev{display:none!important}
+  body{background:#fff;color:#000}
+  .view{display:none!important}
+  .view.active{display:block!important;animation:none}
+  .wrap{padding:0;max-width:none}
+  .glance,.lever-card,.rweek,.w1cue,.anchor,.focusbar{box-shadow:none}
+  .glance::before{display:none}
+  details.card{break-inside:avoid}
+  .c-why{display:block!important;animation:none}
+  a[id]{text-decoration:none;color:inherit}
+}
 </style>
 </head>
 <body>
+<a href="#today" class="skip-link" id="skipLink">Skip to content</a>
 <div class="grain"></div>
 <div class="stars" id="stars" aria-hidden="true"></div>
 
@@ -344,16 +405,16 @@ body.dark .stars{opacity:.85}
   <div class="appbar-inner">
     <a href="#" class="brand" id="brandHome"><svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><defs><radialGradient id="sunmark" cx="50%" cy="42%" r="62%"><stop offset="0" stop-color="#FFD37A"/><stop offset=".55" stop-color="#F4982F"/><stop offset="1" stop-color="#DA6E22"/></radialGradient></defs><g stroke="var(--sun)" stroke-width="2.2" stroke-linecap="round"><line x1="16" y1="4.5" x2="16" y2="7.5"/><line x1="16" y1="24.5" x2="16" y2="27.5"/><line x1="4.5" y1="16" x2="7.5" y2="16"/><line x1="24.5" y1="16" x2="27.5" y2="16"/><line x1="7.87" y1="7.87" x2="9.99" y2="9.99"/><line x1="24.13" y1="7.87" x2="22.01" y2="9.99"/><line x1="7.87" y1="24.13" x2="9.99" y2="22.01"/><line x1="24.13" y1="24.13" x2="22.01" y2="22.01"/></g><circle cx="16" cy="16" r="6.2" fill="url(#sunmark)"/></svg><span>Time <b>Right</b></span></a>
     <div class="vtoggle" id="vtoggle" role="tablist" style="display:none">
-      <button data-view="today" class="on">Today</button>
-      <button data-view="plan">Plan</button>
-      <button data-view="science">Science</button>
+      <button data-view="today" id="tab-today" role="tab" aria-selected="true" class="on">Today</button>
+      <button data-view="plan" id="tab-plan" role="tab" aria-selected="false">Plan</button>
+      <button data-view="science" id="tab-science" role="tab" aria-selected="false">Science</button>
     </div>
-    <button class="recal" id="recalBtn" style="display:none" title="Retake the consultation">↻ <span>Retune</span></button>
+    <button class="recal" id="recalBtn" style="display:none" title="Retake the consultation" aria-label="Retune — retake the consultation">↻ <span>Retune</span></button>
   </div>
 </header>
 
 <!-- ===== CONSULT ===== -->
-<main id="consult" class="view" role="tabpanel">
+<main id="consult" class="view" aria-label="Consultation">
   <aside class="cs-side">
     <div><span class="cs-num" id="csNum">01 / 10</span><h2 id="csLabel">Your goals</h2></div>
     <div class="cs-viz" id="csViz"></div>
@@ -368,7 +429,7 @@ body.dark .stars{opacity:.85}
 </main>
 
 <!-- ===== TODAY ===== -->
-<main id="today" class="view" role="tabpanel">
+<main id="today" class="view" role="tabpanel" aria-labelledby="tab-today">
   <div class="wrap">
     <div class="glance">
       <div class="glance-top"><span class="date" id="date">—</span><span class="sleepbadge" id="sleepBadge"></span></div>
@@ -386,7 +447,7 @@ body.dark .stars{opacity:.85}
           <g class="la-sun" id="laSun" transform="translate(200,64)"><circle r="9" fill="url(#laSun)"/></g>
         </svg>
       </div>
-      <div class="now-status"><div class="greet" id="greet">One moment…</div><div class="up" id="up"></div></div>
+      <div class="now-status"><div class="greet" id="greet">One moment…</div><div class="up" id="up" aria-live="polite" aria-atomic="true"></div></div>
     </div>
     <div class="focusbar" id="focusbar" style="display:none">
       <div class="fb-lbl"><span>Your Week 1 focus</span><a id="focusToPlan">see plan →</a></div>
@@ -395,12 +456,12 @@ body.dark .stars{opacity:.85}
     <div class="anchors" id="summary"></div>
     <div class="tl-title"><h2>Your day, timed right</h2><span class="leg">tap any cue for the why</span></div>
     <div class="timeline" id="timeline"></div>
-    <p class="disclaimer-mini">Educational tool, not medical advice. · <a id="toSci">the science →</a></p>
+    <p class="disclaimer-mini">Educational tool, not medical advice. · <a id="toSci">the science →</a> · <span class="clk" id="clk" role="group" aria-label="Clock format"></span></p>
   </div>
 </main>
 
 <!-- ===== PLAN ===== -->
-<main id="plan" class="view" role="tabpanel">
+<main id="plan" class="view" role="tabpanel" aria-labelledby="tab-plan">
   <div class="wrap">
     <div class="sec-h"><span class="eyebrow">Your lever</span><h2 id="planLeverTitle">Start here.</h2><p>Eight timing bottlenecks shape your day. We ranked them from your answers — fix the keystone and the rest ease behind it.</p></div>
     <div class="lever-card"><span class="tag" id="leverTag">HIGHEST LEVERAGE · START HERE</span><h3 id="leverName">Morning light timing</h3><p id="leverDesc"></p></div>
@@ -411,17 +472,27 @@ body.dark .stars{opacity:.85}
 
     <div class="sec-h" style="margin-top:34px"><span class="eyebrow">The rollout</span><h2>Four weeks, <em>one phase at a time.</em></h2><p>Never an overhaul you white-knuckle. Each week has a bad-day minimum — the version you keep when everything else falls apart.</p></div>
     <div class="ramp">
-      <div class="rweek"><div class="wk">WK 1</div><h4>Stabilize</h4><p>Fix your wake time. One anchor, every day.</p></div>
-      <div class="rweek"><div class="wk">WK 2</div><h4>Shift</h4><p>Push light earlier. Caffeine follows the light.</p></div>
-      <div class="rweek"><div class="wk">WK 3</div><h4>Strengthen</h4><p>Extend the dim window before bed.</p></div>
-      <div class="rweek"><div class="wk">WK 4</div><h4>Refine</h4><p>Hold the pattern. Add one backup move.</p></div>
+      <div class="rweek"><div class="wk">WK 1</div><h3>Stabilize</h3><p>Fix your wake time. One anchor, every day.</p></div>
+      <div class="rweek"><div class="wk">WK 2</div><h3>Shift</h3><p>Push light earlier. Caffeine follows the light.</p></div>
+      <div class="rweek"><div class="wk">WK 3</div><h3>Strengthen</h3><p>Extend the dim window before bed.</p></div>
+      <div class="rweek"><div class="wk">WK 4</div><h3>Refine</h3><p>Hold the pattern. Add one backup move.</p></div>
     </div>
     <div class="badday"><b>Bad-day minimum</b><span id="badday">Morning light + a steady wake time. If you do nothing else, do these two.</span></div>
+
+    <div class="keep">
+      <div class="kl">Keep your plan</div>
+      <div class="keep-row">
+        <button class="keepbtn" id="icsBtn"><span class="gl" aria-hidden="true">＋</span> Add to calendar</button>
+        <button class="keepbtn" id="copyBtn"><span class="gl" aria-hidden="true">⧉</span> Copy as text</button>
+        <button class="keepbtn" id="printBtn"><span class="gl" aria-hidden="true">⎙</span> Print</button>
+      </div>
+      <p class="keep-note" id="keepNote">Your daily anchors as a repeating calendar — no alerts, nothing tracked. Or copy the plan as text. Everything stays on your device.</p>
+    </div>
   </div>
 </main>
 
 <!-- ===== SCIENCE ===== -->
-<section id="science" class="view" role="tabpanel">
+<section id="science" class="view" role="tabpanel" aria-labelledby="tab-science">
   <div class="wrap">
     <div class="sci-head">
       <span class="sci-eyebrow">The science</span>
@@ -452,10 +523,10 @@ body.dark .stars{opacity:.85}
     </div>
     <div class="sci-head" style="margin-bottom:16px"><span class="sci-eyebrow">Your real life</span><h2 style="font-size:clamp(1.5rem,3.5vw,2rem)">It doesn't have to be perfect to be <em>timed right.</em></h2></div>
     <div class="constraints">
-      <div class="cons"><div class="n">01</div><h4>Stuck indoors all day</h4><p>Offices sit at 200–500 lux; outdoor daylight runs 10,000–25,000+. Short outdoor breaks are the most repeatable fix; a bright lamp is the backup.</p></div>
-      <div class="cons"><div class="n">02</div><h4>Before-sunrise mornings</h4><p>A bright lamp, stepping out as the sky lightens, or sun on the commute all count. Timing matters more than the source.</p></div>
-      <div class="cons"><div class="n">03</div><h4>Shared home & family schedule</h4><p>We protect what you can own: your morning light window and your evening dim-down. The rest stays flexible.</p></div>
-      <div class="cons"><div class="n">04</div><h4>Inconsistent bedtimes</h4><p>A consistent <b>wake</b> time anchors your rhythm even when bedtime drifts. That single habit does more than any other change.</p></div>
+      <div class="cons"><div class="n">01</div><h3>Stuck indoors all day</h3><p>Offices sit at 200–500 lux; outdoor daylight runs 10,000–25,000+. Short outdoor breaks are the most repeatable fix; a bright lamp is the backup.</p></div>
+      <div class="cons"><div class="n">02</div><h3>Before-sunrise mornings</h3><p>A bright lamp, stepping out as the sky lightens, or sun on the commute all count. Timing matters more than the source.</p></div>
+      <div class="cons"><div class="n">03</div><h3>Shared home & family schedule</h3><p>We protect what you can own: your morning light window and your evening dim-down. The rest stays flexible.</p></div>
+      <div class="cons"><div class="n">04</div><h3>Inconsistent bedtimes</h3><p>A consistent <b>wake</b> time anchors your rhythm even when bedtime drifts. That single habit does more than any other change.</p></div>
     </div>
     <div class="faq-list">
       <h3 class="sub">Everything you need to know</h3>
@@ -475,8 +546,11 @@ body.dark .stars{opacity:.85}
 var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
 function pad(n){return (n<10?"0":"")+n}
 function mod(n){return ((n%1440)+1440)%1440}
-function fmt(m){m=mod(Math.round(m));var h=Math.floor(m/60),mm=m%60,ap=h>=12?"PM":"AM",h12=h%12;if(h12===0)h12=12;return h12+":"+pad(mm)+" "+ap}
-function fmtShort(m){m=mod(Math.round(m));var h=Math.floor(m/60),mm=m%60,ap=h>=12?"p":"a",h12=h%12;if(h12===0)h12=12;return h12+(mm?":"+pad(mm):"")+ap}
+/* clock format: auto-detect 12h/24h from locale, with a stored manual override (timeright_clock) */
+function localePrefers24(){try{var o=new Intl.DateTimeFormat(undefined,{hour:"numeric"}).resolvedOptions();if(typeof o.hour12==="boolean")return !o.hour12;}catch(e){}try{return !/[ap]\.?m/i.test(new Date(2020,0,1,13,0).toLocaleTimeString());}catch(e){}return false;}
+var clock24=(function(){try{var s=localStorage.getItem("timeright_clock");if(s==="24")return true;if(s==="12")return false;}catch(e){}return localePrefers24();})();
+function fmt(m){m=mod(Math.round(m));var h=Math.floor(m/60),mm=m%60;if(clock24)return pad(h)+":"+pad(mm);var ap=h>=12?"PM":"AM",h12=h%12;if(h12===0)h12=12;return h12+":"+pad(mm)+" "+ap}
+function fmtShort(m){m=mod(Math.round(m));var h=Math.floor(m/60),mm=m%60;if(clock24)return h+":"+pad(mm);var ap=h>=12?"p":"a",h12=h%12;if(h12===0)h12=12;return h12+(mm?":"+pad(mm):"")+ap}
 function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
 
 /* ---------- day-timeline protocol model ---------- */
@@ -484,17 +558,17 @@ var PHASES={dawn:{name:"Dawn",color:"var(--p-dawn)"},morning:{name:"Morning",col
 var PROTOCOLS=[
  {id:"hydrate",phase:"dawn",win:[0,30],title:"Hydrate before anything",line:"~500 ml water with a pinch of sea salt.",why:"You wake mildly dehydrated. Water with a little salt restores blood volume and sharpens alertness before caffeine.",src:"foundation",srcLabel:"Foundation"},
  {id:"light",phase:"dawn",win:[0,60],title:"Get sunlight in your eyes",line:"Outside, no sunglasses. Sunny 5–10 min · cloudy 10–20 · overcast 20–30.",why:"Direct morning light is the strongest signal to your master clock — a cortisol pulse now, melatonin ~14–16 h later. Through glass is far weaker.",src:"huberman",srcLabel:"Huberman"},
- {id:"cold",phase:"morning",at:60,win:[45,75],title:"Deliberate cold exposure",line:"1–3 min cold shower or plunge. Optional, but potent.",why:"A short cold bout drives a long, clean rise in dopamine and norepinephrine — hours of focus without a crash.",src:"huberman",srcLabel:"Huberman"},
- {id:"caffeine",phase:"morning",win:[90,120],title:"Now you can have caffeine",line:"Your first coffee — 90 to 120 minutes after waking.",why:"Adenosine is still clearing for the first ~90 min. Waiting lets caffeine work with your cortisol peak and protects tonight's sleep.",src:"huberman",srcLabel:"Huberman"},
+ {id:"cold",phase:"morning",at:60,win:[45,75],title:"Deliberate cold exposure",line:"1–3 min cold shower or plunge. Optional — ask a doctor first if you have heart or breathing concerns.",why:"A short cold bout drives a long, clean rise in dopamine and norepinephrine — hours of focus without a crash.",src:"huberman",srcLabel:"Huberman"},
+ {id:"caffeine",phase:"morning",win:[90,120],title:"Now you can have caffeine",line:"Your first coffee — 90 to 120 minutes after waking.",why:"Adenosine — the molecule that builds sleep pressure — is still clearing for the first ~90 min. Waiting lets caffeine work with your cortisol peak and protects tonight's sleep.",src:"huberman",srcLabel:"Huberman"},
  {id:"protein",phase:"morning",win:[90,150],title:"Eat 30–40g of protein",line:"A protein-forward first meal: eggs, meat, fish, dairy.",why:"A high-protein early meal drives satiety, stabilizes blood sugar, and supplies amino acids for muscle.",src:"bakri",srcLabel:"Bakri"},
  {id:"train",phase:"morning",at:120,win:[0,180],title:"Train within 3 hours of waking",line:"Resistance + zone-2. Heavy compound lifts.",why:"Body temperature and cortisol rise through the morning — the strongest, lowest-injury window for hard training.",src:"both",srcLabel:"Huberman + Bakri"},
  {id:"focus",phase:"midday",win:[180,360],title:"Protect your peak-focus block",line:"Your hardest cognitive work. Phone away.",why:"Core temperature and cortisol peak in late morning — your sharpest 2–3 hours. Guard it from meetings and your phone.",src:"huberman",srcLabel:"Huberman"},
  {id:"steps",phase:"midday",at:300,title:"Accumulate 8,000–15,000 steps",line:"Spread movement across the day.",why:"Daily steps do more for insulin sensitivity, mood and recovery than any single workout. A background target, not an event.",src:"bakri",srcLabel:"Bakri"},
  {id:"afternoon",phase:"afternoon",at:510,title:"Beat the dip with light + a walk",line:"10 minutes outside instead of another coffee.",why:"Ten minutes of outdoor light and movement resets alertness and gives your eyes a second daytime dose — no sleep-wrecking caffeine.",src:"huberman",srcLabel:"Huberman"},
- {id:"cutoff",phase:"afternoon",at:600,title:"Last call for caffeine",line:"Cut off all caffeine from here on.",why:"Caffeine's half-life is ~5–6 h, so an afternoon cup is still active at bedtime. Stop ~8–10 h before bed.",src:"huberman",srcLabel:"Huberman"},
+ {id:"cutoff",phase:"afternoon",bedRel:480,title:"Last call for caffeine",line:"Cut off all caffeine from here on.",why:"Caffeine's half-life is ~5–6 h, so an afternoon cup is still active at bedtime. Stop ~8–10 h before bed.",src:"huberman",srcLabel:"Huberman"},
  {id:"evening",phase:"evening",at:690,title:"Catch the sunset, dim the lights",line:"View low evening light; switch to warm, low lamps.",why:"Low-angle evening light tells your clock the day is ending and protects melatonin from bright overhead light.",src:"huberman",srcLabel:"Huberman"},
  {id:"meal",phase:"evening",bedRel:180,title:"Finish your last real meal",line:"Stop eating about 3 hours before bed.",why:"Eating close to bed keeps core temperature and digestion elevated when both should fall. An earlier last meal speeds sleep onset.",src:"foundation",srcLabel:"Foundation"},
- {id:"winddown",phase:"night",bedRel:60,title:"Wind down — cool, dark, screens off",line:"Room to ~65–68°F. Lights low. Screens down.",why:"Sleep onset needs a 1–3°F drop in core temperature, so a cool, dim room is non-negotiable for melatonin to rise on time.",src:"huberman",srcLabel:"Huberman"},
+ {id:"winddown",phase:"night",bedRel:60,title:"Wind down — cool, dark, screens off",line:"Cool room, ~18–20°C / 65–68°F. Lights low. Screens down.",why:"Sleep onset usually involves a 1–3°F (≈1°C) drop in core temperature, so a cool, dim room helps melatonin rise on time.",src:"huberman",srcLabel:"Huberman"},
  {id:"lightsout",phase:"night",bedRel:0,title:"Lights out",line:"Same time every night — this locks the rhythm.",why:"~14–16 h after morning light, melatonin peaks. A consistent lights-out stabilizes the whole rhythm. Consistency beats duration.",src:"huberman",srcLabel:"Huberman"}
 ];
 
@@ -601,7 +675,7 @@ function scorePatterns(a){
 
 /* ---------- state ---------- */
 var answers={}, stepIdx=0, ranked=[], chosenPatterns={};
-function save(){try{localStorage.setItem("timeright_answers",JSON.stringify(answers));localStorage.setItem("timeright_done","1")}catch(e){}}
+function save(){try{localStorage.setItem("timeright_answers",JSON.stringify(answers));localStorage.setItem("timeright_chosen",JSON.stringify(chosenPatterns));localStorage.setItem("timeright_done","1")}catch(e){}}
 function targetWakeMin(){return answers.targetWake!=null?answers.targetWake:390}      /* 6:30 */
 function sleepHours(){var w=targetWakeMin(),b=answers.targetBed!=null?answers.targetBed:1350;var span=mod(w-b);return Math.round(span/30)*0.5}
 
@@ -675,7 +749,7 @@ function renderSliders(){
  if(answers.targetWake==null)answers.targetWake=390; if(answers.targetBed==null)answers.targetBed=1350;
  function row(name,key,val,min,max){
    return '<div class="slider-row"><div class="top"><span class="name">'+name+'</span><span class="val" id="v_'+key+'">'+fmt(val)+'</span></div>'+
-   '<input type="range" id="s_'+key+'" min="'+min+'" max="'+max+'" step="15" value="'+val+'"><div class="ends"><span>'+fmt(min)+'</span><span>'+fmt(max)+'</span></div></div>';
+   '<input type="range" id="s_'+key+'" min="'+min+'" max="'+max+'" step="15" value="'+val+'" aria-label="'+name+'" aria-valuemin="'+min+'" aria-valuemax="'+max+'" aria-valuenow="'+val+'" aria-valuetext="'+fmt(val)+'"><div class="ends" aria-hidden="true"><span>'+fmt(min)+'</span><span>'+fmt(max)+'</span></div></div>';
  }
  var inbed=mod(answers.curWake-answers.curBed);
  var h='<div class="rhythm-card"><div class="rc-lbl">Your current rhythm</div>'+
@@ -685,21 +759,22 @@ function renderSliders(){
  h+='<div class="rhythm-card" style="margin-top:12px"><div class="rc-lbl">Target rhythm</div>'+
    row("Wake target","targetWake",answers.targetWake,240,660)+
    row("Lights-out target","targetBed",answers.targetBed,1200,1560)+
-   '<div class="rc-note" id="tgtNote">Target sleep window: '+hm(mod(answers.targetWake-answers.targetBed))+'. As wake moves, lights-out moves with it.</div></div>';
+   '<div class="rc-note" id="tgtNote">'+tgtNoteText()+'</div></div>';
  return h;
 }
 function hm(mins){var h=Math.floor(mins/60),m=mins%60;return h+"h"+(m?" "+m+"min":"")}
+function tgtNoteText(){var span=mod(answers.targetWake-answers.targetBed);var s="Target sleep window: "+hm(span)+". As wake moves, lights-out moves with it.";if(span<360)s+=" That's under 6h in bed — most adults do best on 7–9h.";else if(span>600)s+=" That's over 10h in bed — more than most adults need.";return s;}
 function renderCascade(){
  ranked=scorePatterns(answers);
  if(!Object.keys(chosenPatterns).length){ranked.slice(0,3).forEach(function(r){chosenPatterns[r.p.id]=1})}
  var h='<div class="casc"><div class="casc-head"><span>Your timing patterns</span><span>'+countChosen()+' in your plan</span></div>';
  ranked.forEach(function(r,i){
    var inp=chosenPatterns[r.p.id], key=i===0;
-   h+='<div class="crow'+(inp?" in":"")+(key?" key":"")+'" data-pat="'+r.p.id+'">';
+   h+='<button type="button" class="crow'+(inp?" in":"")+(key?" key":"")+'" data-pat="'+r.p.id+'" aria-pressed="'+(inp?"true":"false")+'">';
    h+='<span class="rk">'+pad(i+1)+'</span><div class="body">';
    h+='<div class="tier">'+(i===0?"Highest leverage":i<3?"In Week 1":"Useful next")+'</div>';
    h+='<div class="nm">'+esc(r.p.nm)+'</div><div class="ds">'+esc(r.p.ds)+'</div></div>';
-   h+='<span class="pick">'+(inp?"✓ in plan":"add")+'</span></div>';
+   h+='<span class="pick">'+(inp?"✓ in plan":"add")+'</span></button>';
  });
  h+='</div>';
  return h;
@@ -758,8 +833,10 @@ function wireConsult(st){
    var s=$("#s_"+key); if(!s)return;
    s.addEventListener("input",function(){ answers[key]=parseInt(s.value,10);
      $("#v_"+key).textContent=fmt(answers[key]);
+     s.setAttribute("aria-valuenow",answers[key]);
+     s.setAttribute("aria-valuetext",fmt(answers[key]));
      var cn=$("#curNote"); if(cn)cn.textContent="Right now, that gives you about "+hm(mod(answers.curWake-answers.curBed))+" in bed.";
-     var tn=$("#tgtNote"); if(tn)tn.textContent="Target sleep window: "+hm(mod(answers.targetWake-answers.targetBed))+". As wake moves, lights-out moves with it.";
+     var tn=$("#tgtNote"); if(tn)tn.textContent=tgtNoteText();
      renderSidePlan();
      var nb=$("#csNext"); if(nb)nb.disabled=!stepComplete(st);
    });
@@ -790,8 +867,11 @@ function finishConsult(){
 
 /* ============================================================ build day schedule */
 function build(){
- var wakeMin=targetWakeMin(), sleepH=sleepHours(); if(!(sleepH>0))sleepH=8;
- var bedOff=Math.round((24-sleepH)*60);
+ var wakeMin=targetWakeMin();
+ // bedOff = true minutes from wake to the user's actual target bedtime (not the
+ // 30-min-rounded sleep duration) so Today shows the lights-out time they set.
+ var bedTarget=answers.targetBed!=null?answers.targetBed:1350;
+ var bedOff=mod(bedTarget-wakeMin); if(!(bedOff>0))bedOff=Math.round((24-8)*60);
  return PROTOCOLS.map(function(p){
    var a,b,sort;
    if(p.bedRel!=null){var c=bedOff-p.bedRel;a=b=c;sort=c}
@@ -803,6 +883,7 @@ function build(){
 /* map week-1 cues / chosen patterns to which protocol ids to flag as "focus" */
 function focusIds(){
  var ids={};
+ // maps single-select "keep" choices to the protocol they emphasize; "none"/"not" intentionally absent (guarded by &&keepMap[...])
  var keepMap={"5-10":"light","commute":"light","device":"light","pushups":"train","meal":"protein","earlier":"cutoff","cutoff":"cutoff","daylight":"afternoon"};
  if(answers.lightKeep&&keepMap[answers.lightKeep])ids[keepMap[answers.lightKeep]]=1;
  if(answers.morningKeep&&keepMap[answers.morningKeep])ids[keepMap[answers.morningKeep]]=1;
@@ -831,9 +912,16 @@ function renderToday(){
  $("#date").textContent=now.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"});
  var hr=now.getHours();$("#greet").textContent=hr<5?"Still night.":hr<12?"Good morning.":hr<18?"Good afternoon.":hr<22?"Good evening.":"Wind down.";
  var up=$("#up");
- if(info.nowRel>bedOff&&info.nowRel<1410){up.innerHTML='<span class="lbl">now</span> <b>Past lights-out.</b> <span class="cd">Protect your sleep — screens down, room cool.</span>';}
- else if(info.next){var mins=mod(info.next.startMin-wakeMin)-info.nowRel;if(mins<0)mins+=1440;var cd=mins<=0?"now":mins<60?"in "+mins+" min":"in "+Math.floor(mins/60)+"h"+(mins%60?" "+(mins%60)+"m":"");up.innerHTML='<span class="lbl">up next</span> <b>'+esc(info.next.p.title)+'</b> · '+fmt(info.next.startMin)+' <span class="cd">'+cd+'</span>';}
- else up.innerHTML="";
+ if(info.nowRel>bedOff){up.innerHTML='<span class="lbl">now</span> <b>Past lights-out.</b> <span class="cd">Protect your sleep — screens down, room cool.</span>';}
+ else {
+   var uph="";
+   // a windowed cue whose live window contains "now" — surfaced as the primary line
+   // ("up next" structurally only shows future cues, so a live cue was invisible at the glance)
+   var live=items.filter(function(it){return it.isWindow&&info.nowRel>=it.relStart&&info.nowRel<=it.relEnd&&info.nowRel<=bedOff})[0];
+   if(live){uph+='<span class="now-line"><span class="lbl">right now</span> <b>'+esc(live.p.title)+'</b> <span class="cd">'+esc(live.p.line)+'</span></span>';}
+   if(info.next){var mins=mod(info.next.startMin-wakeMin)-info.nowRel;if(mins<0)mins+=1440;var cd=mins<=0?"now":mins<60?"in "+mins+" min":"in "+Math.floor(mins/60)+"h"+(mins%60?" "+(mins%60)+"m":"");uph+='<span class="next-line"><span class="lbl">up next</span> <b>'+esc(info.next.p.title)+'</b> · '+fmt(info.next.startMin)+' <span class="cd">'+cd+'</span></span>';}
+   up.innerHTML=uph;
+ }
  // focus chips
  var cues=weekCues();
  if(cues.length){$("#focusbar").style.display="block";$("#focusChips").innerHTML=cues.map(function(c){return '<span class="chip">'+esc(c)+'</span>'}).join("");}
@@ -841,9 +929,9 @@ function renderToday(){
  // timeline
  var html="",cur=null;
  items.forEach(function(it){
-   if(it.phase!==cur){cur=it.phase;var ph=PHASES[cur];html+='<div class="phase-label"><span class="dot" style="background:'+ph.color+'"></span><h4>'+ph.name+'</h4><span class="rng">'+phaseRange(items,cur)+'</span></div>';}
+   if(it.phase!==cur){cur=it.phase;var ph=PHASES[cur];html+='<div class="phase-label"><span class="dot" style="background:'+ph.color+'"></span><h3>'+ph.name+'</h3><span class="rng">'+phaseRange(items,cur)+'</span></div>';}
    var isNext=info.next&&it===info.next&&!(info.nowRel>bedOff);
-   var isNow=it.isWindow&&info.nowRel>=it.relStart&&info.nowRel<=it.relEnd&&info.nowRel<=bedOff;
+   var isNow=(it.isWindow?(info.nowRel>=it.relStart&&info.nowRel<=it.relEnd):(Math.abs(info.nowRel-it.relStart)<=20))&&info.nowRel<=bedOff;
    var isFocus=foc[it.p.id];
    var sub=it.isWindow?"until "+fmtShort(it.endMin):"";
    var badge=isNow?'<span class="badge now">now</span>':isNext?'<span class="badge next">next</span>':(isFocus?'<span class="badge focus">week 1</span>':'');
@@ -859,7 +947,7 @@ function renderToday(){
  drawArc(info,bedOff);
 }
 function anchor(ic,k,v,sub){return '<div class="anchor"><div class="k">'+ic+' '+k+'</div><div class="v">'+v+(sub?' <small>'+sub+'</small>':'')+'</div></div>'}
-function drawArc(info,bedOff){var path=$("#liveArcPath"),sun=$("#laSun"),nl=$("#laNow");if(!path||!path.getTotalLength)return;try{var L=path.getTotalLength(),f=info.nowRel/bedOff,down=f<0||f>1,cf=Math.max(0,Math.min(1,f)),pt=path.getPointAtLength(cf*L);sun.setAttribute("transform","translate("+pt.x.toFixed(1)+","+pt.y.toFixed(1)+")");sun.classList.toggle("down",down);if(!down){nl.style.display="";nl.setAttribute("x1",pt.x.toFixed(1));nl.setAttribute("x2",pt.x.toFixed(1));nl.setAttribute("y1",(pt.y+6).toFixed(1))}else nl.style.display="none"}catch(e){}}
+function drawArc(info,bedOff){var path=$("#liveArcPath"),sun=$("#laSun"),nl=$("#laNow");if(!path||!path.getTotalLength)return;try{var L=path.getTotalLength(),f=info.nowRel/bedOff,down=f<0||f>1,cf=Math.max(0,Math.min(1,f)),pt=path.getPointAtLength(cf*L);sun.setAttribute("transform","translate("+pt.x.toFixed(1)+","+pt.y.toFixed(1)+")");sun.classList.toggle("down",down);sun.style.display=down?"none":"";if(!down){nl.style.display="";nl.setAttribute("x1",pt.x.toFixed(1));nl.setAttribute("x2",pt.x.toFixed(1));nl.setAttribute("y1",(pt.y+6).toFixed(1))}else nl.style.display="none"}catch(e){}}
 
 /* ============================================================ PLAN render */
 function renderPlan(){
@@ -877,10 +965,62 @@ function renderPlan(){
  if(top){$("#badday").textContent= top.id==="morning_anchor"||top.id==="wake_consistency" ? "Morning light + a steady wake time. If you do nothing else, do these two." : "Hold your wake anchor and your "+top.nm.toLowerCase()+" cue. Everything else is a bonus.";}
 }
 
+/* ============================================================ keep / export plan */
+/* the handful of anchors worth carrying out of the app — wake + the load-bearing cues */
+function keyAnchors(){
+ var items=build(),wake=targetWakeMin();
+ function pp(id){return items.filter(function(i){return i.p.id===id})[0]}
+ var light=pp("light"),caf=pp("caffeine"),cut=pp("cutoff"),wind=pp("winddown"),out=pp("lightsout");
+ var a=[{min:wake,dur:0,t:"Wake — your anchor"}];
+ if(light)a.push({min:light.startMin,dur:15,t:"Morning light"});
+ if(caf)a.push({min:caf.startMin,dur:0,t:"Coffee window opens"});
+ if(answers.caffeineUse!=="no"&&cut)a.push({min:cut.startMin,dur:0,t:"Last caffeine"});
+ if(wind)a.push({min:wind.startMin,dur:0,t:"Wind down"});
+ if(out)a.push({min:out.startMin,dur:0,t:"Lights out"});
+ return a;
+}
+function planText(){
+ var top=ranked[0]&&ranked[0].p,cues=weekCues(),L=["TIME RIGHT — my plan",""];
+ if(top){L.push("Start here: "+top.nm);L.push(top.ds+".");L.push("")}
+ if(cues.length){L.push("Week 1 cues:");cues.forEach(function(c){L.push("  - "+c)});L.push("")}
+ L.push("Daily anchors:");
+ keyAnchors().forEach(function(an){L.push("  "+fmt(an.min)+"   "+an.t)});
+ L.push("","A plan, not a tracker. Educational wellness, not medical advice.");
+ return L.join("\n");
+}
+function icsEsc(s){return String(s).replace(/([,;\\])/g,"\\$1").replace(/\n/g,"\\n")}
+/* daily-recurring floating-time events, no alarms, marked free — a reference plan, not a nag */
+function buildICS(){
+ var now=new Date();function p2(n){return(n<10?"0":"")+n}
+ var d=now.getFullYear()+p2(now.getMonth()+1)+p2(now.getDate());
+ var stamp=now.getUTCFullYear()+p2(now.getUTCMonth()+1)+p2(now.getUTCDate())+"T"+p2(now.getUTCHours())+p2(now.getUTCMinutes())+p2(now.getUTCSeconds())+"Z";
+ function tm(min){min=mod(Math.round(min));return p2(Math.floor(min/60))+p2(min%60)+"00"}
+ var o=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Time Right//Plan//EN","CALSCALE:GREGORIAN"];
+ keyAnchors().forEach(function(an,i){
+   var end=an.dur>0?an.min+an.dur:an.min+5;
+   o.push("BEGIN:VEVENT","UID:timeright-"+i+"-"+d+"@timeright.app","DTSTAMP:"+stamp,
+     "DTSTART:"+d+"T"+tm(an.min),"DTEND:"+d+"T"+tm(end),"RRULE:FREQ=DAILY",
+     "SUMMARY:"+icsEsc(an.t),"DESCRIPTION:"+icsEsc("From your Time Right plan."),
+     "TRANSP:TRANSPARENT","END:VEVENT");
+ });
+ o.push("END:VCALENDAR");
+ return o.join("\r\n");
+}
+function dl(name,mime,text){try{var b=new Blob([text],{type:mime}),u=URL.createObjectURL(b),el=document.createElement("a");el.href=u;el.download=name;document.body.appendChild(el);el.click();setTimeout(function(){document.body.removeChild(el);URL.revokeObjectURL(u)},120)}catch(e){}}
+function keepNote(msg){var n=$("#keepNote");if(!n)return;if(!n.getAttribute("data-orig"))n.setAttribute("data-orig",n.textContent);n.textContent=msg;n.classList.add("ok");clearTimeout(keepNote._t);keepNote._t=setTimeout(function(){n.textContent=n.getAttribute("data-orig");n.classList.remove("ok")},2800)}
+function copyPlan(){
+ var t=planText();
+ function ok(){keepNote("Plan copied — paste it anywhere you like.")}
+ function fb(){try{var ta=document.createElement("textarea");ta.value=t;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.focus();ta.select();document.execCommand("copy");document.body.removeChild(ta);ok()}catch(e){dl("time-right-plan.txt","text/plain",t);keepNote("Plan downloaded as a text file.")}}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,fb)}else fb();
+}
+function setClock(is24){clock24=!!is24;try{localStorage.setItem("timeright_clock",is24?"24":"12")}catch(e){}updateClockToggle();if($("#today").classList.contains("active"))renderToday();if($("#plan").classList.contains("active"))renderPlan();if($("#consult").classList.contains("active"))renderConsult()}
+function updateClockToggle(){var c=$("#clk");if(!c)return;c.innerHTML='<button type="button" data-c="12"'+(clock24?"":' class="on"')+' aria-pressed="'+(clock24?"false":"true")+'">12h</button><button type="button" data-c="24"'+(clock24?' class="on"':"")+' aria-pressed="'+(clock24?"true":"false")+'">24h</button>'}
+
 /* ============================================================ views */
 function setView(v){
  $$(".view").forEach(function(el){el.classList.toggle("active",el.id===v)});
- $$("#vtoggle button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-view")===v)});
+ $$("#vtoggle button").forEach(function(b){var on=b.getAttribute("data-view")===v;b.classList.toggle("on",on);b.setAttribute("aria-selected",on?"true":"false")});
  document.body.classList.toggle("dark",v==="science");
  $("#themeColor").setAttribute("content",v==="science"?"#0C1030":"#FAF6EF");
  var inConsult=(v==="consult");
@@ -893,16 +1033,26 @@ function startConsult(){ stepIdx=0; chosenPatterns={}; setView("consult"); rende
 function stars(){var box=$("#stars");if(!box)return;var h="";for(var i=0;i<80;i++){var x=(i*53)%100,y=(i*31)%100,d=i%5,s=(i%3)+1;h+='<span class="star" style="left:'+x+'%;top:'+y+'%;width:'+s+'px;height:'+s+'px;animation-delay:'+d+'s"></span>'}box.innerHTML=h}
 
 function init(){
+ // one-time migration: carry forward answers from the pre-rebrand "calibrate_*" keys for returning users
  try{["answers","done"].forEach(function(k){var o=localStorage.getItem("calibrate_"+k);if(o!=null&&localStorage.getItem("timeright_"+k)==null)localStorage.setItem("timeright_"+k,o)})}catch(e){}
  stars();
  var done=localStorage.getItem("timeright_done");
- if(done){ try{answers=JSON.parse(localStorage.getItem("timeright_answers")||"{}")}catch(e){answers={}} ranked=scorePatterns(answers); ranked.slice(0,3).forEach(function(r){chosenPatterns[r.p.id]=1}); setView("today"); renderToday(); renderPlan(); }
+ if(done){ try{answers=JSON.parse(localStorage.getItem("timeright_answers")||"{}")}catch(e){answers={}} ranked=scorePatterns(answers);
+   var savedChosen=null; try{savedChosen=JSON.parse(localStorage.getItem("timeright_chosen")||"null")}catch(e){}
+   if(savedChosen&&Object.keys(savedChosen).length){chosenPatterns=savedChosen;} else {ranked.slice(0,3).forEach(function(r){chosenPatterns[r.p.id]=1});}
+   setView("today"); renderToday(); renderPlan(); }
  else { startConsult(); }
  $$("#vtoggle button").forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-view");setView(v);if(v==="today")renderToday();if(v==="plan")renderPlan();})});
  $("#recalBtn").addEventListener("click",startConsult);
  $("#brandHome").addEventListener("click",function(e){e.preventDefault();if(localStorage.getItem("timeright_done"))setView("today")});
  var ts=$("#toSci");if(ts)ts.addEventListener("click",function(){setView("science")});
  var fp=$("#focusToPlan");if(fp)fp.addEventListener("click",function(){setView("plan");renderPlan()});
+ var sl=$("#skipLink");if(sl)sl.addEventListener("click",function(e){e.preventDefault();var v=$(".view.active");if(v){v.setAttribute("tabindex","-1");v.focus();v.scrollIntoView()}});
+ var ib=$("#icsBtn");if(ib)ib.addEventListener("click",function(){dl("time-right-plan.ics","text/calendar;charset=utf-8",buildICS());keepNote("Calendar file downloaded — open it to add your daily anchors.")});
+ var cp=$("#copyBtn");if(cp)cp.addEventListener("click",copyPlan);
+ var pr=$("#printBtn");if(pr)pr.addEventListener("click",function(){window.print()});
+ var ck=$("#clk");if(ck)ck.addEventListener("click",function(e){var b=e.target.closest("button");if(b)setClock(b.getAttribute("data-c")==="24")});
+ updateClockToggle();
  setInterval(function(){if($("#today").classList.contains("active"))renderToday()},30000);
  window.addEventListener("load",function(){if($("#today").classList.contains("active"))renderToday()});
  window.addEventListener("resize",function(){if($("#today").classList.contains("active"))renderToday()});
