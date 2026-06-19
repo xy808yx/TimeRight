@@ -342,6 +342,95 @@ body.dark .stars{opacity:.85}
 .sci-disclaimer{margin-top:30px;padding-top:18px;border-top:1px solid var(--night-line);font-size:var(--fs-xs);color:var(--night-ink-2);max-width:66ch}
 .sci-disclaimer a{color:var(--sun-soft)}
 
+/* ============================================================
+   HOME / LANDING
+   ============================================================ */
+#home .wrap{padding-top:0}
+.hm-hero{position:relative;text-align:center;padding:clamp(26px,6vw,60px) 0 clamp(10px,2vw,20px)}
+.hm-hero::before{content:"";position:absolute;left:50%;top:-6%;width:min(720px,128%);height:300px;transform:translateX(-50%);background:radial-gradient(58% 60% at 50% 38%,rgba(246,162,58,.16),transparent 70%);pointer-events:none;z-index:0}
+.hm-hero>*{position:relative;z-index:1}
+.hm-eyebrow{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep);display:inline-flex;align-items:center;gap:.6em}
+.hm-eyebrow::before,.hm-eyebrow::after{content:"";width:18px;height:1px;background:var(--sun-deep);opacity:.45}
+.hm-hero h1{font-family:var(--font-display);font-size:var(--fs-hero);font-weight:var(--w-reg);line-height:1.08;letter-spacing:-.02em;margin:.85rem auto .55rem;max-width:15ch}
+.hm-hero h1 em{font-style:normal;color:var(--sun)}
+.hm-lead{font-size:var(--fs-md);color:var(--ink-2);max-width:52ch;margin:0 auto 1.5rem}
+.hm-cta-row{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;align-items:center}
+.hm-ghost{font-family:var(--font-body);font-size:var(--fs-sm);font-weight:var(--w-med);color:var(--ink-2);background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.4em;padding:.7em .5em;min-height:44px}
+.hm-ghost:hover{color:var(--sun-deep)}
+.hm-ghost:focus-visible,.hm-faq summary:focus-visible{outline:2px solid var(--sun);outline-offset:2px;border-radius:6px}
+.hm-reassure{list-style:none;padding:0;margin-top:1rem;font-size:var(--fs-xs);color:var(--ink-3);display:flex;flex-wrap:wrap;gap:.4em 1.2em;justify-content:center}
+.hm-reassure li{display:inline-flex;align-items:center;gap:.45em}
+.hm-reassure li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--sun);opacity:.75}
+.hm-arc{margin:clamp(14px,3vw,28px) auto 0;max-width:600px}
+.hm-arc svg{width:100%;height:auto;display:block;overflow:visible}
+.hm-tick{font-family:var(--font-mono);font-size:10px;fill:var(--ink-3);letter-spacing:.05em;opacity:.7}
+.hm-sun{filter:drop-shadow(0 0 12px rgba(246,162,58,.8))}
+
+.hm-sec{margin-top:clamp(42px,7vw,76px)}
+.hm-sec-h{text-align:center;max-width:54ch;margin:0 auto clamp(18px,3vw,28px)}
+.hm-sec-h .eyebrow{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep)}
+.hm-sec-h h2{font-family:var(--font-display);font-size:var(--fs-h1);font-weight:var(--w-reg);letter-spacing:-.02em;margin:.45rem 0 .4rem}
+.hm-sec-h h2 em{font-style:normal;color:var(--sun)}
+.hm-sec-h p{color:var(--ink-2);font-size:var(--fs-md)}
+
+.hm-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,18px)}
+@media(max-width:720px){.hm-steps{grid-template-columns:1fr}}
+.hm-step{border:1px solid var(--line);border-radius:var(--r-md);padding:clamp(18px,2.5vw,24px);background:linear-gradient(180deg,#fff,var(--paper))}
+.hm-step .num{font-family:var(--font-mono);font-size:var(--fs-label);color:var(--sun-deep);letter-spacing:.1em}
+.hm-step h3{font-family:var(--font-display);font-size:var(--fs-h3);font-weight:var(--w-reg);margin:.5rem 0 .35rem}
+.hm-step p{font-size:var(--fs-sm);color:var(--ink-2)}
+
+.hm-day{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(180deg,#fff,var(--paper));max-width:540px;margin:0 auto;box-shadow:0 1px 0 #fff inset,0 24px 50px -38px rgba(23,19,13,.4)}
+.hm-day-top{padding:.9rem 1.3rem;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.hm-day-top .t{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep)}
+.hm-day-top .s{font-family:var(--font-mono);font-size:var(--fs-label);color:var(--sun-deep)}
+.hm-day ul{list-style:none;padding:.35rem 1.3rem 1rem;position:relative}
+.hm-day ul::before{content:"";position:absolute;left:calc(1.3rem + 58px + .85rem + 3.5px);top:1rem;bottom:1rem;width:2px;background:linear-gradient(180deg,var(--p-dawn),var(--p-morning) 20%,var(--p-midday) 42%,var(--p-afternoon) 60%,var(--p-evening) 80%,var(--p-night));opacity:.3;border-radius:2px}
+.hm-drow{display:flex;align-items:baseline;gap:.85rem;padding:.62rem 0;border-bottom:1px solid var(--line-2);position:relative;z-index:1}
+.hm-drow:last-child{border-bottom:none}
+.hm-drow .tm{font-family:var(--font-mono);font-size:var(--fs-sm);color:var(--ink);width:58px;flex:0 0 auto}
+.hm-drow .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;align-self:center;box-shadow:0 0 0 3px var(--paper)}
+.hm-drow .lb{font-size:var(--fs-base);color:var(--ink)}
+.hm-day-note{font-size:var(--fs-xs);color:var(--ink-3);text-align:center;margin:.95rem auto 0;max-width:46ch}
+
+.hm-sci-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,18px)}
+@media(max-width:720px){.hm-sci-cards{grid-template-columns:1fr}}
+.hm-scard{border:1px solid var(--line);border-radius:var(--r-md);padding:clamp(18px,2.5vw,24px);background:linear-gradient(180deg,#fff,var(--paper))}
+.hm-scard .n{font-family:var(--font-mono);font-size:var(--fs-label);color:var(--sun-deep)}
+.hm-scard h3{font-family:var(--font-display);font-size:var(--fs-h3);font-weight:var(--w-reg);margin:.5rem 0 .35rem}
+.hm-scard p{font-size:var(--fs-sm);color:var(--ink-2)}
+.hm-cred{display:flex;flex-direction:column;align-items:center;gap:.75rem;margin-top:clamp(18px,2.5vw,26px);text-align:center}
+.hm-credlbl{font-family:var(--font-body);font-size:var(--fs-label);font-weight:var(--w-semi);letter-spacing:var(--track);text-transform:uppercase;color:var(--sun-deep)}
+.hm-experts{display:flex;flex-wrap:wrap;gap:.8rem 2rem;justify-content:center}
+.hm-cred .who{display:inline-flex;align-items:center;gap:.6em}
+.hm-cred .av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-display);color:#fff;font-size:.82rem;flex:0 0 auto}
+.hm-cred .txt{display:flex;flex-direction:column;line-height:1.25;text-align:left}
+.hm-cred .nm{font-size:var(--fs-sm);color:var(--ink);font-weight:var(--w-med)}
+.hm-cred .ro{font-size:var(--fs-xs);color:var(--ink-3)}
+.hm-citeline{display:block;text-align:center;max-width:54ch;margin:.1rem auto 0;font-size:var(--fs-xs);color:var(--ink-3)}
+
+.hm-faq{max-width:680px;margin:0 auto}
+.hm-faq details{border-top:1px solid var(--line)}
+.hm-faq details:last-child{border-bottom:1px solid var(--line)}
+.hm-faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.1rem 0;font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--w-reg);color:var(--ink)}
+.hm-faq summary::-webkit-details-marker{display:none}
+.hm-faq summary:hover{color:var(--sun-deep)}
+.hm-faq .pm{flex:0 0 auto;width:20px;height:20px;position:relative}
+.hm-faq .pm::before,.hm-faq .pm::after{content:"";position:absolute;background:var(--sun-deep);border-radius:2px}
+.hm-faq .pm::before{left:0;right:0;top:9px;height:2px}
+.hm-faq .pm::after{top:0;bottom:0;left:9px;width:2px;transition:transform .3s var(--ease)}
+.hm-faq details[open] .pm::after{transform:scaleY(0)}
+.hm-faq .ans{padding:0 0 1.2rem;color:var(--ink-2);max-width:62ch;font-size:var(--fs-sm)}
+
+.hm-final{margin-top:clamp(46px,7vw,80px);text-align:center;border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(36px,5.5vw,58px) clamp(20px,4vw,30px);background:linear-gradient(180deg,#fff,var(--paper));position:relative;overflow:hidden}
+.hm-final::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 80% at 50% 0%,rgba(246,162,58,.16),transparent 62%);pointer-events:none}
+.hm-final>*{position:relative}
+.hm-final .hm-mk{width:42px;height:42px;margin:0 auto .7rem;display:block}
+.hm-final h2{font-family:var(--font-display);font-size:var(--fs-h1);font-weight:var(--w-reg);letter-spacing:-.02em;margin-bottom:.4rem}
+.hm-final h2 em{font-style:normal;color:var(--sun)}
+.hm-final p{color:var(--ink-2);max-width:42ch;margin:0 auto 1.6rem}
+.hm-foot{margin-top:30px;text-align:center;font-size:var(--fs-xs);color:var(--ink-3)}
+
 /* skip link — visible only on keyboard focus */
 .skip-link{position:absolute;left:-999px;top:-999px;z-index:9999}
 .skip-link:focus{left:clamp(14px,4vw,26px);top:8px;background:var(--sun);color:#fff;padding:.5em 1em;border-radius:100px;font-family:var(--font-body);font-weight:var(--w-semi);font-size:var(--fs-sm)}
@@ -412,6 +501,101 @@ body.dark .stars{opacity:.85}
     <button class="recal" id="recalBtn" style="display:none" title="Retake the consultation" aria-label="Retune — retake the consultation">↻ <span>Retune</span></button>
   </div>
 </header>
+
+<!-- ===== HOME ===== -->
+<main id="home" class="view" aria-label="Welcome to Time Right">
+  <div class="wrap">
+
+    <section class="hm-hero">
+      <span class="hm-eyebrow">Your body-clock day, planned</span>
+      <h1>A daily plan, timed to the <em>clock inside you.</em></h1>
+      <p class="hm-lead">Answer about ten questions and Time Right builds you a personal day-plan — the best times to get light, move, cut caffeine, dim down, and sleep — fitted to your real schedule.</p>
+      <div class="hm-cta-row">
+        <button class="btn-primary hm-start">Build my plan →</button>
+        <button class="hm-ghost" id="heroScroll">See a sample plan ↓</button>
+      </div>
+      <ul class="hm-reassure"><li>On your device</li><li>No account</li><li>About 10 questions</li></ul>
+      <div class="hm-arc" aria-hidden="true">
+        <svg viewBox="0 0 640 184">
+          <defs>
+            <linearGradient id="hmArcGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF8E54"/><stop offset=".28" stop-color="#FFC24B"/><stop offset=".5" stop-color="#39B6DE"/><stop offset=".74" stop-color="#A964C9"/><stop offset="1" stop-color="#5560C4"/></linearGradient>
+            <radialGradient id="hmSunG"><stop offset="0" stop-color="#FFE7B8"/><stop offset=".5" stop-color="#F6A23A"/><stop offset="1" stop-color="#E0772A"/></radialGradient>
+          </defs>
+          <line x1="20" y1="150" x2="620" y2="150" stroke="var(--line-2)" stroke-width="1.4"/>
+          <path d="M40 150 Q320 -4 600 150" fill="none" stroke="url(#hmArcGrad)" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+          <text class="hm-tick" x="40" y="170" text-anchor="middle">sunrise</text>
+          <text class="hm-tick" x="320" y="170" text-anchor="middle">midday</text>
+          <text class="hm-tick" x="600" y="170" text-anchor="middle">night</text>
+          <g class="hm-sun" transform="translate(208,85)"><circle r="20" fill="url(#hmSunG)" opacity=".14"/><circle r="11" fill="url(#hmSunG)"/></g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="hm-sec" id="hmHow">
+      <div class="hm-sec-h"><span class="eyebrow">How it works</span><h2>Three steps to a day that <em>runs on time.</em></h2></div>
+      <div class="hm-steps">
+        <div class="hm-step"><div class="num">01</div><h3>A short conversation</h3><p>Walk through your real day — wake time, light, caffeine, evenings. It feels like talking, not filling out a form.</p></div>
+        <div class="hm-step"><div class="num">02</div><h3>We find the one fix that matters most</h3><p>Your answers show which single change will help you most right now — fix it first and the rest tend to follow.</p></div>
+        <div class="hm-step"><div class="num">03</div><h3>Your plan, timed to you</h3><p>A personalized 24-hour plan and a gentle four-week ramp you can actually keep.</p></div>
+      </div>
+    </section>
+
+    <section class="hm-sec" id="hmDay">
+      <div class="hm-sec-h"><span class="eyebrow">What you get</span><h2>A day, <em>timed right.</em></h2><p>A handful of small, well-timed actions — each placed where it helps most. Here's a sample day; yours is built from your own wake time and constraints.</p></div>
+      <div class="hm-day">
+        <div class="hm-day-top"><span class="t">Sample day</span><span class="s">7 timed cues</span></div>
+        <ul>
+          <li class="hm-drow"><span class="tm">6:30a</span><span class="dot" style="background:var(--p-dawn)"></span><span class="lb">Wake &amp; water — same time daily</span></li>
+          <li class="hm-drow"><span class="tm">6:40a</span><span class="dot" style="background:var(--p-dawn)"></span><span class="lb">10 min of morning light, outside</span></li>
+          <li class="hm-drow"><span class="tm">8:00a</span><span class="dot" style="background:var(--p-morning)"></span><span class="lb">First coffee — once the fog clears</span></li>
+          <li class="hm-drow"><span class="tm">10:00a</span><span class="dot" style="background:var(--p-midday)"></span><span class="lb">Peak-focus block, phone away</span></li>
+          <li class="hm-drow"><span class="tm">4:30p</span><span class="dot" style="background:var(--p-afternoon)"></span><span class="lb">Beat the dip: light &amp; a short walk</span></li>
+          <li class="hm-drow"><span class="tm">8:30p</span><span class="dot" style="background:var(--p-evening)"></span><span class="lb">Dim the lights, catch the sunset</span></li>
+          <li class="hm-drow"><span class="tm">10:30p</span><span class="dot" style="background:var(--p-night)"></span><span class="lb">Lights out — the anchor that holds it all</span></li>
+        </ul>
+      </div>
+      <p class="hm-day-note">No tracking, no streaks, no nagging. A plan you keep — not a tracker you feed.</p>
+    </section>
+
+    <section class="hm-sec" id="hmSci">
+      <div class="hm-sec-h"><span class="eyebrow">Why it works</span><h2>Your eyes help your brain <em>keep time.</em></h2><p>Light and dark are your body's strongest timing signal. Place them well, and sleep, energy, and focus fall into line.</p></div>
+      <div class="hm-sci-cards">
+        <div class="hm-scard"><div class="n">01</div><h3>Light is the signal</h3><p>Bright days and dim nights are your strongest timing cue — stronger than any alarm. Your eyes read the gap.</p></div>
+        <div class="hm-scard"><div class="n">02</div><h3>Your brain keeps the time</h3><p>Special retinal cells send light and dark straight to the brain, which sets alertness, sleep pressure, and hormone timing.</p></div>
+        <div class="hm-scard"><div class="n">03</div><h3>Mapped to your day</h3><p>Time Right places light, movement, caffeine and dimming where each does the most across your real 24 hours.</p></div>
+      </div>
+      <div class="hm-cred">
+        <span class="hm-credlbl">Built on the work of</span>
+        <div class="hm-experts">
+          <span class="who"><span class="av" style="background:linear-gradient(135deg,#F6A23A,#D9772B)">AH</span><span class="txt"><span class="nm">Andrew Huberman, Ph.D.</span><span class="ro">Neuroscientist · Stanford</span></span></span>
+          <span class="who"><span class="av" style="background:linear-gradient(135deg,#43C9A8,#2E9E86)">AB</span><span class="txt"><span class="nm">Dr. Abud Bakri, MD</span><span class="ro">Internal medicine</span></span></span>
+        </div>
+        <span class="hm-citeline">Grounded in circadian research — Czeisler, Berson &amp; Hattar (<i>Science</i>), Chang (<i>PNAS</i>).</span>
+      </div>
+    </section>
+
+    <section class="hm-sec" id="hmFaq">
+      <div class="hm-sec-h"><span class="eyebrow">Good to know</span><h2>Questions, <em>answered.</em></h2></div>
+      <div class="hm-faq">
+        <details><summary>What do I actually get?<span class="pm"></span></summary><div class="ans">A personalized 24-hour plan with specific timed actions — your morning light window, caffeine cut-off, evening dim-down, and lights-out target — all built from your real schedule.</div></details>
+        <details><summary>Do I need to buy anything?<span class="pm"></span></summary><div class="ans">No. Time Right starts with behavior and the tools you already have. It runs in your browser and saves on this device.</div></details>
+        <details><summary>Is this based on real science?<span class="pm"></span></summary><div class="ans">Yes. The timing follows peer-reviewed circadian research on light, sleep, and alertness — not trends. Time Right translates that work into specific times for your day.</div></details>
+        <details><summary>Can I change it later?<span class="pm"></span></summary><div class="ans">Yes — hit <b>Retune</b> any time your schedule, season, or travel changes. Same process, fresh plan.</div></details>
+        <details><summary>Do I need a smartwatch or wearable?<span class="pm"></span></summary><div class="ans">No. Time Right is a plan, not a tracker. It never depends on a device reading your body.</div></details>
+      </div>
+    </section>
+
+    <section class="hm-final">
+      <svg class="hm-mk" viewBox="0 0 32 32" fill="none" aria-hidden="true"><defs><radialGradient id="hmMkG" cx="50%" cy="42%" r="62%"><stop offset="0" stop-color="#FFD37A"/><stop offset=".55" stop-color="#F4982F"/><stop offset="1" stop-color="#DA6E22"/></radialGradient></defs><g stroke="var(--sun)" stroke-width="2.2" stroke-linecap="round"><line x1="16" y1="4.5" x2="16" y2="7.5"/><line x1="16" y1="24.5" x2="16" y2="27.5"/><line x1="4.5" y1="16" x2="7.5" y2="16"/><line x1="24.5" y1="16" x2="27.5" y2="16"/><line x1="7.87" y1="7.87" x2="9.99" y2="9.99"/><line x1="24.13" y1="7.87" x2="22.01" y2="9.99"/><line x1="7.87" y1="24.13" x2="9.99" y2="22.01"/><line x1="24.13" y1="24.13" x2="22.01" y2="22.01"/></g><circle cx="16" cy="16" r="6.2" fill="url(#hmMkG)"/></svg>
+      <h2>Ready to get your <em>timing right?</em></h2>
+      <p>A few questions, and your plan is ready — free, on this device, and yours to change any time.</p>
+      <button class="btn-primary hm-start">Build my plan →</button>
+    </section>
+
+    <p class="hm-foot">Educational wellness tool, not medical advice.</p>
+
+  </div>
+</main>
 
 <!-- ===== CONSULT ===== -->
 <main id="consult" class="view" aria-label="Consultation">
@@ -856,7 +1040,7 @@ function renderViz(st){
  var arc='<svg viewBox="0 0 230 90"><path d="M8 78 Q115 6 222 78" fill="none" stroke="url(#vg)" stroke-width="2.5" stroke-linecap="round"/><defs><linearGradient id="vg" x1="0" x2="1"><stop offset="0" stop-color="#FF8E54"/><stop offset=".5" stop-color="#39B6DE"/><stop offset="1" stop-color="#5560C4"/></linearGradient></defs><line x1="6" y1="78" x2="224" y2="78" stroke="rgba(23,19,13,.12)"/></svg>';
  v.innerHTML=arc+'<div class="cap">'+esc(caps[st.num]||"")+'</div>';
 }
-function goHomeFromConsult(){ if(localStorage.getItem("timeright_done")){setView("today")} }
+function goHomeFromConsult(){ setView(localStorage.getItem("timeright_done")?"today":"home"); }
 
 function finishConsult(){
  ranked=scorePatterns(answers);
@@ -1041,10 +1225,12 @@ function init(){
    var savedChosen=null; try{savedChosen=JSON.parse(localStorage.getItem("timeright_chosen")||"null")}catch(e){}
    if(savedChosen&&Object.keys(savedChosen).length){chosenPatterns=savedChosen;} else {ranked.slice(0,3).forEach(function(r){chosenPatterns[r.p.id]=1});}
    setView("today"); renderToday(); renderPlan(); }
- else { startConsult(); }
+ else { setView("home"); }
  $$("#vtoggle button").forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-view");setView(v);if(v==="today")renderToday();if(v==="plan")renderPlan();})});
  $("#recalBtn").addEventListener("click",startConsult);
- $("#brandHome").addEventListener("click",function(e){e.preventDefault();if(localStorage.getItem("timeright_done"))setView("today")});
+ $$(".hm-start").forEach(function(b){b.addEventListener("click",startConsult)});
+ var hScroll=$("#heroScroll");if(hScroll)hScroll.addEventListener("click",function(){var t=$("#hmDay");if(t)t.scrollIntoView({behavior:"smooth",block:"start"})});
+ $("#brandHome").addEventListener("click",function(e){e.preventDefault();setView(localStorage.getItem("timeright_done")?"today":"home")});
  var ts=$("#toSci");if(ts)ts.addEventListener("click",function(){setView("science")});
  var fp=$("#focusToPlan");if(fp)fp.addEventListener("click",function(){setView("plan");renderPlan()});
  var sl=$("#skipLink");if(sl)sl.addEventListener("click",function(e){e.preventDefault();var v=$(".view.active");if(v){v.setAttribute("tabindex","-1");v.focus();v.scrollIntoView()}});
